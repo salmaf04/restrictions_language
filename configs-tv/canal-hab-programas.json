@@ -1,0 +1,245 @@
+﻿{
+    "nombre_canal":  "Canal Habana",
+    "programas":  [
+        {
+            "nombre":  "ÁNIMA",
+            "tipo_programa":  "animacion",
+            "tipo_publico":  "juvenil"
+        },
+        {
+            "nombre":  "ALGO ENTRE MANOS",
+            "tipo_programa":  "cultural",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "BANDA SONORA",
+            "tipo_programa":  "musical",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "BANDA SONORA JUVENIL",
+            "tipo_programa":  "cultural",
+            "tipo_publico":  "juvenil"
+        },
+        {
+            "nombre":  "BREVES ESTACIONES",
+            "tipo_programa":  "cultural",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "CANAL HABANA DEPORTES",
+            "tipo_programa":  "deporte",
+            "tipo_publico":  "toda-la-familia"
+        },
+        {
+            "nombre":  "CAZADOR DE TROLES",
+            "tipo_programa":  "infantil",
+            "tipo_publico":  "infantil"
+        },
+        {
+            "nombre":  "CINE +",
+            "tipo_programa":  "cine",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "CINECITO EN TV",
+            "tipo_programa":  "cine",
+            "tipo_publico":  "infantil"
+        },
+        {
+            "nombre":  "CINEMA HABANA",
+            "tipo_programa":  "cine",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "COORDENADAS",
+            "tipo_programa":  "informativo",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "COORDENADAS INFANTILES",
+            "tipo_programa":  "informativo",
+            "tipo_publico":  "infantil"
+        },
+        {
+            "nombre":  "COSAS DEL CINE",
+            "tipo_programa":  "cine",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "CUENTAS VERDE LIMÓN",
+            "tipo_programa":  "infantil",
+            "tipo_publico":  "infantil"
+        },
+        {
+            "nombre":  "D DISEÑO",
+            "tipo_programa":  "cultural",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "DÉCADAS MILAGROSAS",
+            "tipo_programa":  "musical",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "DONDE VA LA HABANA",
+            "tipo_programa":  "cultural",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "EL MUNDO DE CRAIG",
+            "tipo_programa":  "animacion",
+            "tipo_publico":  "infantil"
+        },
+        {
+            "nombre":  "EL TIEMPO Y LA MEMORIA",
+            "tipo_programa":  "informativo",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "ESTA ES MI PEÑA",
+            "tipo_programa":  "musical",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "GEN HABANERO",
+            "tipo_programa":  "documental",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "HABANA COLECCIÓN",
+            "tipo_programa":  "cultural",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "HABANA NOTICIARIO",
+            "tipo_programa":  "informativo",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "JUGADA PERFECTA",
+            "tipo_programa":  "deporte",
+            "tipo_publico":  "toda-la-familia"
+        },
+        {
+            "nombre":  "LATINOS",
+            "tipo_programa":  "musical",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "LIBRE ACCESO",
+            "tipo_programa":  "informativo",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "MÚSICA DEL MUNDO",
+            "tipo_programa":  "musical",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "MÚSICA HABANA",
+            "tipo_programa":  "musical",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "MÚSICA SÍ",
+            "tipo_programa":  "musical",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "NOVELA “LA NIETA ELEGIDA”",
+            "tipo_programa":  "ficción",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "PAPEL EN BLANCO",
+            "tipo_programa":  "cultural",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "POWER RANGERS",
+            "tipo_programa":  "infantil",
+            "tipo_publico":  "infantil"
+        },
+        {
+            "nombre":  "QUE LA MÚSICA NO FALTE",
+            "tipo_programa":  "musical",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "REVISTA HOLA HABANA",
+            "tipo_programa":  "revista",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "RITMO CLIP",
+            "tipo_programa":  "musical",
+            "tipo_publico":  "juvenil"
+        },
+        {
+            "nombre":  "SALUDARTE",
+            "tipo_programa":  "salud",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "SECUENCIA",
+            "tipo_programa":  "cultural",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "SERIE “CRÍMENES MAYORES”",
+            "tipo_programa":  "ficción",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "SERIE JUVENIL “SABRINA, LA BRUJA ADOLESCENTE”",
+            "tipo_programa":  "ficción",
+            "tipo_publico":  "juvenil"
+        },
+        {
+            "nombre":  "SIN PUNTOS SUSPENSIVOS",
+            "tipo_programa":  "entrevista",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "TIENE QUE VER",
+            "tipo_programa":  "cine",
+            "tipo_publico":  "infantil"
+        },
+        {
+            "nombre":  "TODO POP",
+            "tipo_programa":  "musical",
+            "tipo_publico":  "juvenil"
+        },
+        {
+            "nombre":  "TRAVESÍA",
+            "tipo_programa":  "cultural",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "TRIANGULO DE LA CONFIANZA",
+            "tipo_programa":  "entrevista",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "VE Y MIRA",
+            "tipo_programa":  "cine",
+            "tipo_publico":  "adulto"
+        },
+        {
+            "nombre":  "VERDE HABANA",
+            "tipo_programa":  "documental",
+            "tipo_publico":  "toda-la-familia"
+        },
+        {
+            "nombre":  "X DISTANTE",
+            "tipo_programa":  "animacion",
+            "tipo_publico":  "juvenil"
+        },
+        {
+            "nombre":  "YO BAILO",
+            "tipo_programa":  "musical",
+            "tipo_publico":  "toda-la-familia"
+        }
+    ]
+}

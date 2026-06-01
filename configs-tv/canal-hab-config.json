@@ -1,0 +1,15 @@
+{
+    "nombre": "Canal Habana",
+    "transmision": [
+        "lunes",
+        "martes",   
+        "miércoles",
+        "jueves",
+        "viernes",
+        "sábado",
+        "domingo"
+    ],
+    "restricciones": [
+        "No deben existir dos programas seguidos del mismo tipo"
+    ]
+}

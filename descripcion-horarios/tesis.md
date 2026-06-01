@@ -1,0 +1,44 @@
+  - los grados pueden ser lic., Msc., Dr.
+  - un profesor tiene un id, un nombre y un grado
+  - un estudiante tiene un id y un nombre
+  - tutor es un profesor
+  - oponente es un profesor
+  - presidente es un profesor
+  - secretario es un profesor
+  - vocal es un profesor
+  - una tesis tiene 6 elementos:
+    - id
+    - estudiante
+    - tutor
+    - oponente
+    - presidente
+    - secretario
+    - vocal
+  - un día tiene un «nombre»
+  - una hora tiene un «nombre»
+  - los posibles días son: 1/6, 2/6 3/6 
+  - las posibles horas son: 9am, 11am 1pm, 3pm
+  - un local tiene un nombre
+  - nos interesa asociar tesis, con local, con día, con hora
+  - restricción fuerte:
+    - un profesor no puede estar en dos tesis el mismo día a la misma hora
+- la parte visual
+  - hay una tabla de profesores.  las columnas son: id, nombre, grado
+  - hay una tabla de estudiantes.  las columnas son: id, nombre
+  - hay una tabla tabla de tesis.  las columnas son id, estudiante, tutor, oponente, presidente, secretario, vocal
+  - hay una tabla «ubicaciones» por día que tiene en las columnas locales, y en las filas horas.
+    - una celda está formada por una única casilla
+    - en esa casilla se pone tiene el id de una tesis.
+    - una celda representa que ese día, a esa hora en ese local está esa tesis
+    - si una tesis está en un casilla, entonces todos los «profesores» de esa tesis están en esa casilla.
+      Quizás esto pueda ser un comentario 🤔
+    - formato condicional:
+      - si un profesor aparece en dos casillas distintas, resaltarlas en rojo
+        aquí que el profesor «aparezca» es que está en dos tesis que estén en casillas distintas.
+  - hay una tabla de «totales» en las que
+    - las columnas son: profesor, tutor, oponente, presidente, secretario y vocal
+    - las «celdas»
+      - tienen una sola casilla, y
+      - en cada celda aparece cuántas veces el profesor tiene la función correspondiente a esa columna.
+  - hay una tabla que indica qué tesis faltan por ubicarse
+    - una tesis está «ubicada» si aparece en alguna celda de la tabla ubicaciones.

@@ -1,0 +1,480 @@
+﻿{
+  "nombre_canal":  "Canal Habana",
+  "planificacion_semanal":  [
+    {
+      "dia":  "lunes",
+      "programas":  [
+        {
+          "nombre":  "EL TIEMPO Y LA MEMORIA",
+          "hora_inicio":  "16:00",
+          "duracion":  5
+        },
+        {
+          "nombre":  "COORDENADAS",
+          "hora_inicio":  "16:05",
+          "duracion":  5
+        },
+        {
+          "nombre":  "REVISTA HOLA HABANA",
+          "hora_inicio":  "16:10",
+          "duracion":  50
+        },
+        {
+          "nombre":  "DÉCADAS MILAGROSAS",
+          "hora_inicio":  "17:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "HABANA NOTICIARIO",
+          "hora_inicio":  "17:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "POWER RANGERS",
+          "hora_inicio":  "18:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "CINECITO EN TV",
+          "hora_inicio":  "18:30",
+          "duracion":  25
+        },
+        {
+          "nombre":  "COORDENADAS INFANTILES",
+          "hora_inicio":  "18:55",
+          "duracion":  5
+        },
+        {
+          "nombre":  "VE Y MIRA",
+          "hora_inicio":  "19:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "MÚSICA HABANA",
+          "hora_inicio":  "19:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "HABANA COLECCIÓN",
+          "hora_inicio":  "20:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "MÚSICA SÍ",
+          "hora_inicio":  "20:30",
+          "duracion":  60
+        },
+        {
+          "nombre":  "D DISEÑO",
+          "hora_inicio":  "21:30",
+          "duracion":  15
+        },
+        {
+          "nombre":  "SIN PUNTOS SUSPENSIVOS",
+          "hora_inicio":  "21:45",
+          "duracion":  15
+        },
+        {
+          "nombre":  "NOVELA “LA NIETA ELEGIDA”",
+          "hora_inicio":  "22:00",
+          "duracion":  45
+        },
+        {
+          "nombre":  "HABANA NOTICIARIO",
+          "hora_inicio":  "22:45",
+          "duracion":  30
+        },
+        {
+          "nombre":  "SERIE “CRÍMENES MAYORES”",
+          "hora_inicio":  "23:15",
+          "duracion":  45
+        }
+      ]
+    },
+    {
+      "dia":  "martes",
+      "programas":  [
+        {
+          "nombre":  "TODO POP",
+          "hora_inicio":  "19:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "BREVES ESTACIONES",
+          "hora_inicio":  "20:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "SALUDARTE",
+          "hora_inicio":  "20:30",
+          "duracion":  15
+        },
+        {
+          "nombre":  "SECUENCIA",
+          "hora_inicio":  "20:45",
+          "duracion":  15
+        },
+        {
+          "nombre":  "RITMO CLIP",
+          "hora_inicio":  "21:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "TRIANGULO DE LA CONFIANZA",
+          "hora_inicio":  "21:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "NOVELA “LA NIETA ELEGIDA”",
+          "hora_inicio":  "22:00",
+          "duracion":  45
+        },
+        {
+          "nombre":  "HABANA NOTICIARIO",
+          "hora_inicio":  "22:45",
+          "duracion":  30
+        },
+        {
+          "nombre":  "SERIE “CRÍMENES MAYORES”",
+          "hora_inicio":  "23:15",
+          "duracion":  45
+        }
+      ]
+    },
+    {
+      "dia":  "miercoles",
+      "programas":  [
+        {
+          "nombre":  "COSAS DEL CINE",
+          "hora_inicio":  "19:45",
+          "duracion":  15
+        },
+        {
+          "nombre":  "RITMO CLIP",
+          "hora_inicio":  "20:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "BANDA SONORA JUVENIL",
+          "hora_inicio":  "20:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "VE Y MIRA",
+          "hora_inicio":  "21:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "MÚSICA DEL MUNDO",
+          "hora_inicio":  "21:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "HABANA NOTICIARIO",
+          "hora_inicio":  "22:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "CINEMA HABANA",
+          "hora_inicio":  "22:30",
+          "duracion":  77
+        }
+      ]
+    },
+    {
+      "dia":  "jueves",
+      "programas":  [
+        {
+          "nombre":  "EL TIEMPO Y LA MEMORIA",
+          "hora_inicio":  "16:00",
+          "duracion":  5
+        },
+        {
+          "nombre":  "COORDENADAS",
+          "hora_inicio":  "16:05",
+          "duracion":  5
+        },
+        {
+          "nombre":  "REVISTA HOLA HABANA",
+          "hora_inicio":  "16:10",
+          "duracion":  50
+        },
+        {
+          "nombre":  "SALUDARTE",
+          "hora_inicio":  "17:00",
+          "duracion":  15
+        },
+        {
+          "nombre":  "SECUENCIA",
+          "hora_inicio":  "17:15",
+          "duracion":  15
+        },
+        {
+          "nombre":  "HABANA NOTICIARIO",
+          "hora_inicio":  "17:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "CAZADOR DE TROLES",
+          "hora_inicio":  "18:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "EL MUNDO DE CRAIG",
+          "hora_inicio":  "18:30",
+          "duracion":  15
+        },
+        {
+          "nombre":  "ÁNIMA",
+          "hora_inicio":  "18:45",
+          "duracion":  45
+        },
+        {
+          "nombre":  "PAPEL EN BLANCO",
+          "hora_inicio":  "19:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "MÚSICA DEL MUNDO",
+          "hora_inicio":  "20:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "TRAVESÍA",
+          "hora_inicio":  "20:30",
+          "duracion":  15
+        },
+        {
+          "nombre":  "DONDE VA LA HABANA",
+          "hora_inicio":  "20:45",
+          "duracion":  15
+        },
+        {
+          "nombre":  "BANDA SONORA",
+          "hora_inicio":  "21:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "ESTA ES MI PEÑA",
+          "hora_inicio":  "21:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "NOVELA “LA NIETA ELEGIDA”",
+          "hora_inicio":  "22:00",
+          "duracion":  45
+        },
+        {
+          "nombre":  "HABANA NOTICIARIO",
+          "hora_inicio":  "22:45",
+          "duracion":  30
+        },
+        {
+          "nombre":  "SERIE “CRÍMENES MAYORES”",
+          "hora_inicio":  "23:15",
+          "duracion":  45
+        }
+      ]
+    },
+    {
+      "dia":  "viernes",
+      "programas":  [
+        {
+          "nombre":  "GEN HABANERO",
+          "hora_inicio":  "16:30",
+          "duracion":  60
+        },
+        {
+          "nombre":  "HABANA NOTICIARIO",
+          "hora_inicio":  "17:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "TIENE QUE VER",
+          "hora_inicio":  "18:00",
+          "duracion":  115
+        },
+        {
+          "nombre":  "COORDENADAS INFANTILES",
+          "hora_inicio":  "19:55",
+          "duracion":  5
+        },
+        {
+          "nombre":  "ALGO ENTRE MANOS",
+          "hora_inicio":  "20:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "BREVES ESTACIONES",
+          "hora_inicio":  "20:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "DÉCADAS MILAGROSAS",
+          "hora_inicio":  "21:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "SIN PUNTOS SUSPENSIVOS",
+          "hora_inicio":  "21:30",
+          "duracion":  15
+        },
+        {
+          "nombre":  "YO BAILO",
+          "hora_inicio":  "21:45",
+          "duracion":  15
+        },
+        {
+          "nombre":  "NOVELA “LA NIETA ELEGIDA”",
+          "hora_inicio":  "22:00",
+          "duracion":  45
+        },
+        {
+          "nombre":  "HABANA NOTICIARIO",
+          "hora_inicio":  "22:45",
+          "duracion":  30
+        },
+        {
+          "nombre":  "SERIE “CRÍMENES MAYORES”",
+          "hora_inicio":  "23:15",
+          "duracion":  45
+        }
+      ]
+    },
+    {
+      "dia":  "sabado",
+      "programas":  [
+        {
+          "nombre":  "EL TIEMPO Y LA MEMORIA",
+          "hora_inicio":  "16:00",
+          "duracion":  5
+        },
+        {
+          "nombre":  "COORDENADAS",
+          "hora_inicio":  "16:05",
+          "duracion":  5
+        },
+        {
+          "nombre":  "CUENTAS VERDE LIMÓN",
+          "hora_inicio":  "16:10",
+          "duracion":  35
+        },
+        {
+          "nombre":  "BANDA SONORA JUVENIL",
+          "hora_inicio":  "16:45",
+          "duracion":  30
+        },
+        {
+          "nombre":  "TRAVESÍA",
+          "hora_inicio":  "17:15",
+          "duracion":  15
+        },
+        {
+          "nombre":  "TODO POP",
+          "hora_inicio":  "17:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "SERIE JUVENIL “SABRINA, LA BRUJA ADOLESCENTE”",
+          "hora_inicio":  "18:00",
+          "duracion":  45
+        },
+        {
+          "nombre":  "LIBRE ACCESO",
+          "hora_inicio":  "18:45",
+          "duracion":  45
+        },
+        {
+          "nombre":  "JUGADA PERFECTA",
+          "hora_inicio":  "19:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "QUE LA MÚSICA NO FALTE",
+          "hora_inicio":  "20:00",
+          "duracion":  15
+        },
+        {
+          "nombre":  "COSAS DEL CINE",
+          "hora_inicio":  "20:15",
+          "duracion":  15
+        },
+        {
+          "nombre":  "MÚSICA HABANA",
+          "hora_inicio":  "20:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "X DISTANTE",
+          "hora_inicio":  "21:00",
+          "duracion":  90
+        },
+        {
+          "nombre":  "MÚSICA SI",
+          "hora_inicio":  "22:30",
+          "duracion":  90
+        }
+      ]
+    },
+    {
+      "dia":  "domingo",
+      "programas":  [
+        {
+          "nombre":  "EL TIEMPO Y LA MEMORIA",
+          "hora_inicio":  "02:00",
+          "duracion":  5
+        },
+        {
+          "nombre":  "COORDENADAS",
+          "hora_inicio":  "02:05",
+          "duracion":  5
+        },
+        {
+          "nombre":  "CANAL HABANA DEPORTES",
+          "hora_inicio":  "02:10",
+          "duracion":  890
+        },
+        {
+          "nombre":  "LATINOS",
+          "hora_inicio":  "17:00",
+          "duracion":  60
+        },
+        {
+          "nombre":  "PAPEL EN BLANCO",
+          "hora_inicio":  "18:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "ALGO ENTRE MANOS",
+          "hora_inicio":  "18:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "VERDE HABANA",
+          "hora_inicio":  "19:00",
+          "duracion":  15
+        },
+        {
+          "nombre":  "GEN HABANERO",
+          "hora_inicio":  "19:15",
+          "duracion":  15
+        },
+        {
+          "nombre":  "TRIANGULO DE LA CONFIANZA",
+          "hora_inicio":  "19:30",
+          "duracion":  30
+        },
+        {
+          "nombre":  "BANDA SONORA",
+          "hora_inicio":  "20:00",
+          "duracion":  30
+        },
+        {
+          "nombre":  "CINE +",
+          "hora_inicio":  "20:30",
+          "duracion":  205
+        }
+      ]
+    }
+  ]
+}

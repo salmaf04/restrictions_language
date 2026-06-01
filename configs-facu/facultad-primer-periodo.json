@@ -1,0 +1,819 @@
+[
+  {
+    "grupo": "D111",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 1, "asignatura": "Álgebra Lineal C", "aula": "7"
+      },
+      {
+        "dia": "lunes", "turno": 2, "asignatura": "Introducción a la Programación C", "aula": "7"
+      },
+      {
+        "dia": "lunes", "turno": 3, "asignatura": "Lógica C", "aula": "7"
+      },
+      {
+        "dia": "martes", "turno": 1, "asignatura": "Filosofía C", "aula": "7"
+      },
+      {
+        "dia": "martes", "turno": 2, "asignatura": "Introducción a la Ciencia de Datos C", "aula": "7"
+      },
+      {
+        "dia": "martes", "turno": 3, "asignatura": "Análisis Matemático I C", "aula": "6"
+      },
+      {
+        "dia": "miércoles", "turno": 1, "asignatura": "Filosofía C", "aula": "7"
+      },
+      {
+        "dia": "miércoles", "turno": 2, "asignatura": "Educación Física I", "aula": "SEDER"
+      },
+      {
+        "dia": "miércoles", "turno": 3, "asignatura": "Análisis Matemático I C", "aula": "6"
+      },
+      {
+        "dia": "jueves", "turno": 1, "asignatura": "Análisis Matemático I CP", "aula": "7"
+      },
+      {
+        "dia": "jueves", "turno": 2, "asignatura": "Álgebra Lineal C", "aula": "7"
+      },
+      {
+        "dia": "jueves", "turno": 3, "asignatura": "Introducción a la Ciencia de Datos CP", "aula": "7"
+      },
+      {
+        "dia": "viernes", "turno": 1, "asignatura": "Álgebra Lineal CP", "aula": "7"
+      },
+      {
+        "dia": "viernes", "turno": 2, "asignatura": "Lógica CP", "aula": "7"
+      },
+      {
+        "dia": "viernes", "turno": 3, "asignatura": "Introducción a la Programación", "aula": "Lab"
+      }
+    ]
+  },
+  {
+    "grupo": "D211",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 4, "asignatura": "Matemática y Aplicaciones C", "aula": "6"
+      },
+      {
+        "dia": "lunes", "turno": 5, "asignatura": "Estructura de Datos C", "aula": "2"
+      },
+      {
+        "dia": "martes", "turno": 4, "asignatura": "Bases de Datos C", "aula": "2"
+      },
+      {
+        "dia": "martes", "turno": 5, "asignatura": "Probabilidades C", "aula": "2"
+      },
+      {
+        "dia": "martes", "turno": 6, "asignatura": "Economía Política C", "aula": "3"
+      },
+      {
+        "dia": "miércoles", "turno": 4, "asignatura": "Visualización de Datos C", "aula": "2"
+      },
+      {
+        "dia": "miércoles", "turno": 5, "asignatura": "Matemática y Aplicaciones C", "aula": "2"
+      },
+      {
+        "dia": "miércoles", "turno": 6, "asignatura": "Educación Física III", "aula": "SEDER"
+      },
+      {
+        "dia": "jueves", "turno": 4, "asignatura": "Matemática y Aplicaciones CP", "aula": "6"
+      },
+      {
+        "dia": "jueves", "turno": 5, "asignatura": "Probabilidades CP", "aula": "2"
+      },
+      {
+        "dia": "jueves", "turno": 6, "asignatura": "Economía Política C", "aula": "3"
+      },
+      {
+        "dia": "viernes", "turno": 4, "asignatura": "Estructura de Datos CP", "aula": "2"
+      },
+      {
+        "dia": "viernes", "turno": 5, "asignatura": "Bases de Datos CP", "aula": "2"
+      }
+    ]
+  },
+  {
+    "grupo": "C111",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 1, "asignatura": "Filosofía C", "aula": "6"
+      },
+      {
+        "dia": "lunes", "turno": 2, "asignatura": "Programación C", "aula": "6"
+      },
+      {
+        "dia": "lunes", "turno": 3, "asignatura": "Lógica C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 2, "asignatura": "Álgebra I C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 3, "asignatura": "Análisis Matemático I C", "aula": "6"
+      },
+            {
+        "dia": "miércoles", "turno": 1, "asignatura": "Álgebra I C", "aula": "6"
+      },
+      {
+        "dia": "miércoles", "turno": 2, "asignatura": "Educación Física I", "aula": "SEDER"
+      },
+      {
+        "dia": "miércoles", "turno": 3, "asignatura": "Análisis Matemático I C", "aula": "6"
+      },
+      {
+        "dia": "jueves", "turno": 1, "asignatura": "Análisis Matemático I CP", "aula": "6"
+      },
+      {
+        "dia": "jueves", "turno": 2, "asignatura": "Álgebra I CP", "aula": "6"
+      },
+      {
+        "dia": "jueves", "turno": 3, "asignatura": "Programación CP", "aula": "1"
+      },
+      {
+        "dia": "viernes", "turno": 1, "asignatura": "Filosofía C", "aula": "6"
+      },
+      {
+        "dia": "viernes", "turno": 2, "asignatura": "Programación CP", "aula": "Lab"
+      },
+      {
+        "dia": "viernes", "turno": 3, "asignatura": "Lógica CP", "aula": "1"
+      }
+    ]
+  },
+  {
+    "grupo": "C112",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 1, "asignatura": "Filosofía C", "aula": "6"
+      },
+      {
+        "dia": "lunes", "turno": 2, "asignatura": "Programación C", "aula": "6"
+      },
+      {
+        "dia": "lunes", "turno": 3, "asignatura": "Lógica C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 2, "asignatura": "Álgebra I C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 3, "asignatura": "Análisis Matemático I C", "aula": "6"
+      },
+            {
+        "dia": "miércoles", "turno": 1, "asignatura": "Álgebra I C", "aula": "1"
+      },
+      {
+        "dia": "miércoles", "turno": 2, "asignatura": "Educación Física I", "aula": "SEDER"
+      },
+      {
+        "dia": "miércoles", "turno": 3, "asignatura": "Análisis Matemático I C", "aula": "6"
+      },
+       {
+        "dia": "jueves", "turno": 1, "asignatura": "Análisis Matemático I CP", "aula": "6"
+      },
+      {
+        "dia": "jueves", "turno": 2, "asignatura": "Programación CP", "aula": "1"
+      },
+      {
+        "dia": "jueves", "turno": 3, "asignatura": "Álgebra I CP", "aula": "5"
+      },
+      {
+        "dia": "viernes", "turno": 1, "asignatura": "Filosofía C", "aula": "1"
+      },
+      {
+        "dia": "viernes", "turno": 2, "asignatura": "Lógica CP", "aula": "1"
+      },
+      {
+        "dia": "viernes", "turno": 3, "asignatura": "Programación CP", "aula": "Lab"
+      }
+    ]
+  },
+  {
+    "grupo": "C113",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 1, "asignatura": "Filosofía C", "aula": "6"
+      },
+      {
+        "dia": "lunes", "turno": 2, "asignatura": "Programación C", "aula": "6"
+      },
+      {
+        "dia": "lunes", "turno": 3, "asignatura": "Lógica C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 2, "asignatura": "Álgebra I C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 3, "asignatura": "Análisis Matemático I C", "aula": "6"
+      },
+            {
+        "dia": "miércoles", "turno": 1, "asignatura": "Álgebra I C", "aula": "2"
+      },
+      {
+        "dia": "miércoles", "turno": 2, "asignatura": "Educación Física I", "aula": "SEDER"
+      },
+      {
+        "dia": "miércoles", "turno": 3, "asignatura": "Análisis Matemático I C", "aula": "6"
+      },
+       {
+        "dia": "jueves", "turno": 1, "asignatura": "Análisis Matemático I CP", "aula": "2"
+      },
+      {
+        "dia": "jueves", "turno": 2, "asignatura": "Álgebra I CP", "aula": "2"
+      },
+      {
+        "dia": "jueves", "turno": 3, "asignatura": "Programación CP", "aula": "2"
+      },
+      {
+        "dia": "viernes", "turno": 1, "asignatura": "Programación CP", "aula": "Lab"
+      },
+      {
+        "dia": "viernes", "turno": 2, "asignatura": "Lógica CP", "aula": "2"
+      },
+      {
+        "dia": "viernes", "turno": 3, "asignatura": "Filosofía C", "aula": "2"
+      }
+      
+    ]
+  },
+  {
+    "grupo": "C121",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 1, "asignatura": "Programación C", "aula": "5"
+      },
+      {
+        "dia": "lunes", "turno": 2, "asignatura": "Lógica C", "aula": "5"
+      },
+      {
+        "dia": "lunes", "turno": 3, "asignatura": "Filosofía C", "aula": "5"
+      },
+      {
+        "dia": "martes", "turno": 1, "asignatura": "Álgebra I C", "aula": "5"
+      },
+      {
+        "dia": "martes", "turno": 2, "asignatura": "Análisis Matemático I C", "aula": "5"
+      },
+      {
+        "dia": "miércoles", "turno": 1, "asignatura": "Análisis Matemático I CP", "aula": "5"
+      },
+      {
+        "dia": "miércoles", "turno": 2, "asignatura": "Educación Física I", "aula": "SEDER"
+      },
+      {
+        "dia": "miércoles", "turno": 3, "asignatura": "Álgebra I CP", "aula": "5"
+      },
+      {
+        "dia": "jueves", "turno": 1, "asignatura": "Filosofía C", "aula": "5"
+      },
+      {
+        "dia": "jueves", "turno": 2, "asignatura": "Programación CP", "aula": "5"
+      },
+      {
+        "dia": "jueves", "turno": 3, "asignatura": "Álgebra I CP", "aula": "5"
+      },
+      {
+        "dia": "viernes", "turno": 1, "asignatura": "Lógica CP", "aula": "5"
+      },
+      {
+        "dia": "viernes", "turno": 2, "asignatura": "Programación CP", "aula": "Lab"
+      },
+      {
+        "dia": "viernes", "turno": 3, "asignatura": "Análisis Matemático I CP", "aula": "5"
+      }
+    ]
+  },
+  {
+    "grupo": "C122",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 1, "asignatura": "Programación C", "aula": "5"
+      },
+      {
+        "dia": "lunes", "turno": 2, "asignatura": "Lógica C", "aula": "5"
+      },
+      {
+        "dia": "lunes", "turno": 3, "asignatura": "Filosofía C", "aula": "5"
+      },
+      {
+        "dia": "martes", "turno": 1, "asignatura": "Álgebra I C", "aula": "5"
+      },
+      {
+        "dia": "martes", "turno": 2, "asignatura": "Análisis Matemático I C", "aula": "5"
+      },
+      {
+        "dia": "miércoles", "turno": 1, "asignatura": "Análisis Matemático I CP", "aula": "5"
+      },
+      {
+        "dia": "miércoles", "turno": 2, "asignatura": "Educación Física I", "aula": "SEDER"
+      },
+      {
+        "dia": "miércoles", "turno": 3, "asignatura": "Álgebra I CP", "aula": "5"
+      },
+      {
+        "dia": "jueves", "turno": 1, "asignatura": "Filosofía C", "aula": "5"
+      },
+      {
+        "dia": "jueves", "turno": 2, "asignatura": "Álgebra I CP", "aula": "6"
+      },
+      {
+        "dia": "jueves", "turno": 3, "asignatura": "Programación CP", "aula": "1"
+      },
+      {
+        "dia": "viernes", "turno": 1, "asignatura": "Programación CP", "aula": "Lab"
+      },
+      {
+        "dia": "viernes", "turno": 2, "asignatura": "Lógica CP", "aula": "5"
+      },
+      {
+        "dia": "viernes", "turno": 3, "asignatura": "Análisis Matemático I CP", "aula": "6"
+      }
+    ]
+  },
+  {
+    "grupo": "C211",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 4, "asignatura": "Estructuras de Datos y Algoritmos I C", "aula": "6"
+      },
+      {
+        "dia": "lunes", "turno": 5, "asignatura": "Ecuaciones Diferenciales Ordinarias C", "aula": "6"
+      },
+      {
+        "dia": "lunes", "turno": 6, "asignatura": "Arquitectura de computadoras C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 4, "asignatura": "Matemática Discreta I C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 5, "asignatura": "Matemática Numérica C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 6, "asignatura": "Estructuras de Datos y Algoritmos I CP", "aula": "6"
+      },
+      {
+        "dia": "miércoles", "turno": 4, "asignatura": "Ecuaciones Diferenciales Ordinarias I CP", "aula": "6"
+      },
+      {
+        "dia": "miércoles", "turno": 5, "asignatura": "Teoría Política C", "aula": "6"
+      },
+      {
+        "dia": "miércoles", "turno": 6, "asignatura": "Educación Física III", "aula": "SEDER"
+      }, 
+      {
+        "dia": "jueves", "turno": 4, "asignatura": "Matemática Numérica CP", "aula": "6"
+      },
+      {
+        "dia": "jueves", "turno": 5, "asignatura": "Teoría Política C", "aula": "6"
+      },
+      {
+        "dia": "viernes", "turno": 4, "asignatura": "Matemática Discreta I CP", "aula": "6"
+      },
+      {
+        "dia": "viernes", "turno": 5, "asignatura": "Arquitectura de computadoras CP", "aula": "6"
+      }
+    ]
+  },
+  {
+    "grupo": "C212",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 4, "asignatura": "Estructuras de Datos y Algoritmos I C", "aula": "6"
+      },
+      {
+        "dia": "lunes", "turno": 5, "asignatura": "Ecuaciones Diferenciales Ordinarias C", "aula": "6"
+      },
+      {
+        "dia": "lunes", "turno": 6, "asignatura": "Arquitectura de computadoras C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 4, "asignatura": "Matemática Discreta I C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 5, "asignatura": "Matemática Numérica C", "aula": "6"
+      },
+      {
+        "dia": "martes", "turno": 6, "asignatura": "Estructuras de Datos y Algoritmos I CP", "aula": "5"
+      },
+      {
+        "dia": "miércoles", "turno": 4, "asignatura": "Ecuaciones Diferenciales Ordinarias I CP", "aula": "6"
+      },
+      {
+        "dia": "miércoles", "turno": 5, "asignatura": "Teoría Política C", "aula": "6"
+      },
+      {
+        "dia": "miércoles", "turno": 6, "asignatura": "Educación Física III", "aula": "SEDER"
+      }, 
+      {
+        "dia": "jueves", "turno": 4, "asignatura": "Matemática Numérica CP", "aula": "5"
+      },
+      {
+        "dia": "jueves", "turno": 5, "asignatura": "Teoría Política C", "aula": "6"
+      },
+      {
+        "dia": "viernes", "turno": 4, "asignatura": "Matemática Discreta I CP", "aula": "5"
+      },
+      {
+        "dia": "viernes", "turno": 5, "asignatura": "Arquitectura de computadoras CP", "aula": "5"
+      }
+    ]
+  },
+  {
+    "grupo": "C311",
+    "carrera": "CIENCIA DE LA COMPUTACIÓN C3 y C4",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 1, "asignatura": "Ingeniería de Software C", "aula": "9"
+      },
+      {
+        "dia": "lunes", "turno": 2, "asignatura": "Redes de Computadoras C", "aula": "9"
+      },
+      {
+        "dia": "lunes", "turno": 3, "asignatura": "Estadística C", "aula": "9"
+      },
+      {
+        "dia": "martes", "turno": 1, "asignatura": "Ingeniería de Software CP", "aula": "9"
+      },
+      {
+        "dia": "martes", "turno": 2, "asignatura": "Bases de Datos II C", "aula": "9"
+      },
+      {
+        "dia": "martes", "turno": 3, "asignatura": "Lenguaje de Programación C", "aula": "9"
+      },
+      {
+        "dia": "miércoles", "turno": 1, "asignatura": "Redes de Computadoras CP", "aula": "9"
+      },
+      {
+        "dia": "miércoles", "turno": 2, "asignatura": "Programación Declarativa C", "aula": "9"
+      },
+      {
+        "dia": "miércoles", "turno": 3, "asignatura": "Estadística CP", "aula": "9"
+      },
+      {
+        "dia": "jueves", "turno": 1, "asignatura": "Lenguaje de Programación CP", "aula": "9"
+      },
+      {
+        "dia": "jueves", "turno": 2, "asignatura": "Programación Declarativa CP", "aula": "9"
+      },
+      {
+        "dia": "jueves", "turno": 3, "asignatura": "Bases de Datos II CP", "aula": "9"
+      }
+    ]
+  },
+  {
+    "grupo": "C312",
+    "carrera": "CIENCIA DE LA COMPUTACIÓN C3 y C4",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 1, "asignatura": "Ingeniería de Software C", "aula": "9"
+      },
+      {
+        "dia": "lunes", "turno": 2, "asignatura": "Redes de Computadoras C", "aula": "9"
+      },
+      {
+        "dia": "lunes", "turno": 3, "asignatura": "Estadística C", "aula": "9"
+      },
+      {
+        "dia": "martes", "turno": 1, "asignatura": "Ingeniería de Software CP", "aula": "3"
+      },
+      {
+        "dia": "martes", "turno": 2, "asignatura": "Bases de Datos II C", "aula": "9"
+      },
+      {
+        "dia": "martes", "turno": 3, "asignatura": "Lenguaje de Programación C", "aula": "9"
+      },
+      {
+        "dia": "miércoles", "turno": 1, "asignatura": "Redes de Computadoras CP", "aula": "3"
+      },
+      {
+        "dia": "miércoles", "turno": 2, "asignatura": "Programación Declarativa C", "aula": "9"
+      },
+      {
+        "dia": "miércoles", "turno": 3, "asignatura": "Estadística CP", "aula": "3"
+      },
+      {
+        "dia": "jueves", "turno": 1, "asignatura": "Lenguaje de Programación CP", "aula": "3"
+      },
+      {
+        "dia": "jueves", "turno": 2, "asignatura": "Programación Declarativa CP", "aula": "3"
+      },
+      {
+        "dia": "jueves", "turno": 3, "asignatura": "Bases de Datos II CP", "aula": "3"
+      }
+    ]
+  },
+  {
+    "grupo": "C411",
+    "carrera": "CIENCIA DE LA COMPUTACIÓN C3 y C4",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 4, "asignatura": "Sistemas de Recuperación de la Información C", "aula": "9"
+      },
+      {
+        "dia": "lunes", "turno": 5, "asignatura": "Compilación C", "aula": "9"
+      },
+      {
+        "dia": "lunes", "turno": 6, "asignatura": "Estudios de Ciencia, Tecnología y Sociedad C", "aula": ""
+      },
+      {
+        "dia": "martes", "turno": 4, "asignatura": "Simulación C", "aula": "9"
+      },
+      {
+        "dia": "martes", "turno": 5, "asignatura": "Inteligencia Artificial C", "aula": "9"
+      },
+      {
+        "dia": "miércoles", "turno": 4, "asignatura": "Inteligencia Artificial CP", "aula": "9"
+      },
+      {
+        "dia": "miércoles", "turno": 5, "asignatura": "Sistemas de Recuperación de la Información CP", "aula": "9"
+      },
+      {
+        "dia": "miércoles", "turno": 6, "asignatura": "Estudios de Ciencia, Tecnología y Sociedad C", "aula": "9"
+      },
+      {
+        "dia": "jueves", "turno": 4, "asignatura": "Modelos Matemáticos Aplicados C", "aula": "9"
+      },
+      {
+        "dia": "jueves", "turno": 5, "asignatura": "Simulación CP", "aula": "9"
+      },
+      {
+        "dia": "jueves", "turno": 6, "asignatura": "Compilación CP", "aula": "9"
+      }
+    ]
+  },
+  {
+    "grupo": "C412",
+    "carrera": "CIENCIA DE LA COMPUTACIÓN C3 y C4",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 4, "asignatura": "Sistemas de Recuperación de la Información C", "aula": "9"
+      },
+      {
+        "dia": "lunes", "turno": 5, "asignatura": "Compilación C", "aula": "9"
+      },
+      {
+        "dia": "lunes", "turno": 6, "asignatura": "Estudios de Ciencia, Tecnología y Sociedad C", "aula": ""
+      },
+      {
+        "dia": "martes", "turno": 4, "asignatura": "Simulación C", "aula": "9"
+      },
+      {
+        "dia": "martes", "turno": 5, "asignatura": "Inteligencia Artificial C", "aula": "9"
+      },
+      {
+        "dia": "miércoles", "turno": 4, "asignatura": "Inteligencia Artificial CP", "aula": "1"
+      },
+      {
+        "dia": "miércoles", "turno": 5, "asignatura": "Sistemas de Recuperación de la Información CP", "aula": "1"
+      },
+      {
+        "dia": "miércoles", "turno": 6, "asignatura": "Estudios de Ciencia, Tecnología y Sociedad C", "aula": "9"
+      },
+      {
+        "dia": "jueves", "turno": 4, "asignatura": "Modelos Matemáticos Aplicados C", "aula": "9"
+      },
+      {
+        "dia": "jueves", "turno": 5, "asignatura": "Simulación CP", "aula": "1"
+      },
+      {
+        "dia": "jueves", "turno": 6, "asignatura": "Compilación CP", "aula": "1"
+      }
+    ]
+  },
+  {
+    "grupo": "M111",
+    "carrera": "MATEMÁTICA",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 1, "asignatura": "Programación y Algoritmos C", "aula": "8"
+      },
+      {
+        "dia": "lunes", "turno": 2, "asignatura": "Geometría Analítica C", "aula": "8"
+      },
+      {
+        "dia": "lunes", "turno": 3, "asignatura": "Introducción al Análisis Matemático C", "aula": "8"
+      },
+      {
+        "dia": "martes", "turno": 1, "asignatura": "Introducción a la Matemática C", "aula": "8"
+      },
+      {
+        "dia": "martes", "turno": 2, "asignatura": "Introducción al Álgebra C", "aula": "8"
+      },
+      {
+        "dia": "martes", "turno": 3, "asignatura": "Filosofía C", "aula": "8"
+      },
+      {
+        "dia": "miércoles", "turno": 1, "asignatura": "Introducción al Análisis Matemático C", "aula": "8"
+      },
+      {
+        "dia": "miércoles", "turno": 2, "asignatura": "Educación Física I", "aula": "SEDER"
+      },
+      {
+        "dia": "miércoles", "turno": 3, "asignatura": "Introducción al Álgebra C", "aula": "8"
+      },
+      {
+        "dia": "jueves", "turno": 1, "asignatura": "Geometría Analítica C", "aula": "8"
+      },
+      {
+        "dia": "jueves", "turno": 2, "asignatura": "Filosofía C", "aula": "8"
+      },
+      {
+        "dia": "jueves", "turno": 3, "asignatura": "Programación y Algoritmos CP", "aula": "8"
+      },
+      {
+        "dia": "viernes", "turno": 1, "asignatura": "Introducción al Álgebra CP", "aula": "8"
+      },
+      {
+        "dia": "viernes", "turno": 2, "asignatura": "Introducción al Análisis Matemático CP", "aula": "8"
+      },
+      {
+        "dia": "viernes", "turno": 3, "asignatura": "Geometría Analítica CP", "aula": "8"
+      }
+    ]
+  },
+  {
+    "grupo": "M112",
+    "carrera": "MATEMÁTICA",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 1, "asignatura": "Programación y Algoritmos C", "aula": "8"
+      },
+      {
+        "dia": "lunes", "turno": 2, "asignatura": "Geometría Analítica C", "aula": "8"
+      },
+      {
+        "dia": "lunes", "turno": 3, "asignatura": "Introducción al Análisis Matemático C", "aula": "8"
+      },
+      {
+        "dia": "martes", "turno": 1, "asignatura": "Introducción a la Matemática C", "aula": "8"
+      },
+      {
+        "dia": "martes", "turno": 2, "asignatura": "Introducción al Álgebra C", "aula": "8"
+      },
+      {
+        "dia": "martes", "turno": 3, "asignatura": "Filosofía C", "aula": "8"
+      },
+      {
+        "dia": "miércoles", "turno": 1, "asignatura": "Introducción al Análisis Matemático C", "aula": "8"
+      },
+      {
+        "dia": "miércoles", "turno": 2, "asignatura": "Educación Física I", "aula": "SEDER"
+      },
+      {
+        "dia": "miércoles", "turno": 3, "asignatura": "Introducción al Álgebra C", "aula": "8"
+      },
+      {
+        "dia": "jueves", "turno": 1, "asignatura": "Geometría Analítica C", "aula": "8"
+      },
+      {
+        "dia": "jueves", "turno": 2, "asignatura": "Filosofía C", "aula": "8"
+      },
+      {
+        "dia": "jueves", "turno": 3, "asignatura": "Programación y Algoritmos CP", "aula": "8"
+      },
+      {
+        "dia": "viernes", "turno": 1, "asignatura": "Geometría Analítica CP", "aula": "12"
+      },
+      {
+        "dia": "viernes", "turno": 2, "asignatura": "Introducción al Análisis Matemático CP", "aula": "13"
+      },
+      {
+        "dia": "viernes", "turno": 3, "asignatura": "Introducción al Álgebra CP", "aula": "1"
+      }
+    ]
+  },
+  {
+    "grupo": "M211",
+    "carrera": "MATEMÁTICA",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 4, "asignatura": "Complementos de Álgebra Lineal C", "aula": "3"
+      },
+      {
+        "dia": "lunes", "turno": 5, "asignatura": "Funciones de Varias Variables C", "aula": "3"
+      },
+      {
+        "dia": "lunes", "turno": 6, "asignatura": "Economía Política C", "aula": "3"
+      },
+      {
+        "dia": "martes", "turno": 4, "asignatura": "Complementos de Álgebra Lineal C", "aula": "3"
+      },
+      {
+        "dia": "martes", "turno": 5, "asignatura": "Funciones de Varias Variables C", "aula": "3"
+      },
+      {
+        "dia": "martes", "turno": 6, "asignatura": "Educación Física III", "aula": "SEDER"
+      },
+      {
+        "dia": "miércoles", "turno": 4, "asignatura": "Complementos de Álgebra Lineal C", "aula": "3"
+      },
+      {
+        "dia": "miércoles", "turno": 5, "asignatura": "Funciones de Varias Variables CP", "aula": "3"
+      },
+      {
+        "dia": "miércoles", "turno": 6, "asignatura": "Economía Política C", "aula": "3"
+      },
+      {
+        "dia": "jueves", "turno": 4, "asignatura": "Funciones de Varias Variables CP", "aula": "3"
+      },
+      {
+        "dia": "jueves", "turno": 5, "asignatura": "Complementos de Álgebra Lineal CP", "aula": "3"
+      },
+      {
+        "dia": "jueves", "turno": 6, "asignatura": "Asignatura Electiva I", "aula": ""
+      },
+      {
+        "dia": "viernes", "turno": 4, "asignatura": "Funciones de Varias Variables CP", "aula": "3"
+      },
+      {
+        "dia": "viernes", "turno": 5, "asignatura": "Seminario de Problemas II", "aula": ""
+      }
+    ]
+  },
+  {
+    "grupo": "M311",
+    "carrera": "MATEMÁTICA",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 1, "asignatura": "Teoría Política C", "aula": "4"
+      },
+      {
+        "dia": "lunes", "turno": 2, "asignatura": "Inferencia Estadística C", "aula": "4"
+      },
+      {
+        "dia": "lunes", "turno": 3, "asignatura": "Matemática Numérica C", "aula": "4"
+      },
+      {
+        "dia": "martes", "turno": 1, "asignatura": "Ecuaciones Diferenciales Ordinarias C", "aula": "4"
+      },
+      {
+        "dia": "martes", "turno": 2, "asignatura": "Funciones de variable Compleja C", "aula": "4"
+      },
+      {
+        "dia": "martes", "turno": 3, "asignatura": "Optimización Matemática I C", "aula": "4"
+      },
+      {
+        "dia": "miércoles", "turno": 1, "asignatura": "Matemática Numérica CP", "aula": "4"
+      },
+      {
+        "dia": "miércoles", "turno": 2, "asignatura": "Ecuaciones Diferenciales Ordinarias C", "aula": "4"
+      },
+      {
+        "dia": "miércoles", "turno": 3, "asignatura": "Inferencia Estadística C", "aula": "4"
+      },
+      {
+        "dia": "jueves", "turno": 1, "asignatura": "Inferencia Estadística CP", "aula": "4"
+      },
+      {
+        "dia": "jueves", "turno": 2, "asignatura": "Funciones de variable Compleja C", "aula": "4"
+      },
+      {
+        "dia": "jueves", "turno": 3, "asignatura": "Optimización Matemática I C", "aula": "4"
+      },
+      {
+        "dia": "viernes", "turno": 1, "asignatura": "Funciones de variable Compleja CP", "aula": "4"
+      },
+      {
+        "dia": "viernes", "turno": 2, "asignatura": "Ecuaciones Diferenciales Ordinarias CP", "aula": "4"
+      },
+      {
+        "dia": "viernes", "turno": 3, "asignatura": "Asignatura Optativa I", "aula": "1"
+      }
+    ]
+  },
+  {
+    "grupo": "M411",
+    "carrera": "MATEMÁTICA",
+    "horario": [
+      {
+        "dia": "lunes", "turno": 4, "asignatura": "Ecuaciones en Derivadas Parciales C", "aula": "4"
+      },
+      {
+        "dia": "lunes", "turno": 5, "asignatura": "Topología C", "aula": "4"
+      },
+      {
+        "dia": "lunes", "turno": 6, "asignatura": "Seminario de Problemas III", "aula": ""
+      },
+      {
+        "dia": "martes", "turno": 4, "asignatura": "Matemática Numérica II C", "aula": "4"
+      },
+      {
+        "dia": "martes", "turno": 5, "asignatura": "Optimización Matemática II C", "aula": "4"
+      },
+      {
+        "dia": "miércoles", "turno": 4, "asignatura": "Matemática Numérica II CP", "aula": "Lab 1"
+      },
+      {
+        "dia": "miércoles", "turno": 5, "asignatura": "Optimización Matemática II CP", "aula": "4"
+      },
+      {
+        "dia": "jueves", "turno": 4, "asignatura": "Topología CP", "aula": "4"
+      },
+      {
+        "dia": "jueves", "turno": 5, "asignatura": "Ecuaciones en Derivadas Parciales CP", "aula": "4"
+      },
+      {
+        "dia": "viernes", "turno": 4, "asignatura": "Asignatura Optativa II", "aula": ""
+      }
+    ]
+  }
+]

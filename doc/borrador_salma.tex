@@ -1,0 +1,188 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{titlesec}
+
+\title{Fundamentos y estado del arte de la asignación de horarios \\
+        \large Fundamentos de Lenguajes y Representación}
+\author{Salma Fonseca Curbelo}
+\date{}
+
+\titleformat{\paragraph}
+    [hang] % formato
+    {\normalfont\normalsize\bfseries} % fuente (negrita, tamaño normal)
+    {\theparagraph} % cómo se muestra el número (ej. 1.1.1.1)
+    {1em} % espacio entre el número y el título
+    {} % código antes del título (vacío)
+\titlespacing*{\paragraph}
+    {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex} % márgenes y saltos de línea
+
+\begin{document}
+
+\maketitle
+
+\section{Fundamentos y estado del arte de la confección de horarios}
+
+Este capítulo aborda el problema de la confección de horarios, que constituye un área de estudio dentro de la planificación de recursos y la optimización \cite{babaei2015}. En la Sección~\ref{sec:tipos} se presentan los principales tipos de problemas de horarios, destacando sus características y diferencias según el contexto de aplicación. En la Sección~\ref{sec:meta} se introduce el uso de metaheurísticas como herramienta fundamental para su resolución, dada la complejidad computacional de estos problemas \cite{karp1972}. En la Sección~\ref{sec:arte} se revisan los principales enfoques y soluciones propuestas en la literatura para los casos de estudio considerados: los horarios universitarios y los horarios televisivos.
+
+\subsection{Tipos de problemas de horarios}
+\label{sec:tipos}
+
+La asignación de horarios constituye un problema de planificación en diversos contextos \cite{babaei2015}. Este consiste en organizar y distribuir un conjunto de actividades en determinados intervalos de tiempo, bajo un conjunto de restricciones que limitan las posibles asignaciones.
+
+Estas restricciones pueden clasificarse en restricciones duras y restricciones blandas. Las restricciones duras son aquellas que deben cumplirse obligatoriamente para que una solución sea válida, mientras que las restricciones blandas están asociadas a preferencias o criterios de calidad cuya violación no invalida la solución, pero sí afecta su calidad.
+
+Entre las restricciones más comunes se encuentran los conflictos y los solapamientos. Un conflicto ocurre cuando dos o más actividades compiten por el uso simultáneo de un mismo recurso limitado, mientras que un solapamiento se produce cuando actividades asignadas coinciden en el tiempo de manera incompatible, impidiendo su ejecución simultánea por parte de los actores involucrados.
+
+Además de estas restricciones fundamentales, también deben considerarse factores como la disponibilidad de recursos, espacios y personas, lo que incrementa la complejidad del problema y restringe aún más el conjunto de soluciones viables. Sin una adecuada gestión de estos elementos, la operatividad y logística de cualquier institución o sistema puede verse afectada.
+
+Sin embargo, este tipo de problema no es homogéneo, ya que existen distintas variantes según el ámbito en el que se aplique, cada una con características, restricciones y objetivos específicos. A continuación, se presentan dos tipos representativos: horarios de facultad (Sección~\ref{sec:facultad}) y horarios de televisión (Sección~\ref{sec:tv}).
+
+\subsubsection{Horario de facultad}
+\label{sec:facultad}
+
+Este tipo de problema consiste en asignar cursos, profesores y aulas a determinados periodos de tiempo, cumpliendo con múltiples restricciones \cite{abdennadher2000, muller2005, babaei2015}. Entre ellas se incluyen la disponibilidad de los docentes, la capacidad de las aulas y la no superposición de materias para un mismo grupo de estudiantes. El objetivo principal suele ser generar un horario factible que optimice el uso de los recursos y minimice conflictos. Por ejemplo, se busca poder asignar la asignatura de ``Álgebra'' al grupo ``C111'' los lunes a las 9:15 am en el aula ``5'', garantizando de forma estricta que el profesor a cargo no tenga otra clase programada simultáneamente en otro grupo o aula.
+
+Aunque el ámbito académico presenta desafíos únicos centrados en recursos pedagógicos limitados, existen otros sectores que enfrentan problemas de planificación temporal similares pero orientados a una competencia comercial, como es el caso del medio televisivo.
+
+\subsubsection{Horario de televisión}
+\label{sec:tv}
+
+En este caso, el problema radica en organizar la programación de contenidos en distintos bloques horarios, con el fin de maximizar la audiencia y la rentabilidad \cite{bollapragada2002}. Se deben considerar factores como el tipo de público en cada franja horaria, la competencia con otros canales y la duración de los programas \cite{fernandez2008}. Por ejemplo, el programador debe asegurar que un bloque infantil se emita en las mañanas de fin de semana, o garantizar que un noticiero estelar no se solape con la transmisión en vivo de un evento deportivo prolongado. A diferencia del entorno académico, aquí el énfasis está en la optimización estratégica y comercial.
+
+\vspace{0.3cm}
+La complejidad combinatoria hace que su resolución manual sea altamente ineficiente. Esto ha motivado la aplicación de métodos avanzados de computación.
+
+\subsection{Metaheurísticas}
+\label{sec:meta}
+
+Los problemas de asignación de horarios, como los del ámbito universitario o televisivo, se caracterizan por su complejidad, al aumentar el número de actividades, recursos y restricciones, el espacio de soluciones crece de forma exponencial \cite{talbi2009}. La dificultad de los mismos puede entenderse a través de la teoría de la complejidad computacional, específicamente a la clase de problemas NP-duros.  Un problema se clasifica como NP-duro si es, al menos, tan difícil como los problemas más complejos en la clase NP (aquellos cuyas soluciones pueden ser verificadas en tiempo polinomial); esto implica que no se conoce un algoritmo que pueda resolverlos de manera exacta en un tiempo polinomial respecto al tamaño de la entrada. En la literatura, se ha demostrado que diversas variantes de la confección de horarios son NP-durass. 
+
+Ante la imposibilidad práctica de explorar exhaustivamente el espacio de soluciones, se recurre a enfoques alternativos que permiten obtener soluciones cercanas al óptimo en tiempos de ejecución razonables \cite{talbi2009}. Entre estas alternativas destacan las metaheurísticas son estrategias generales de búsqueda que exploran los espacios de soluciones sin garantizar la optimalidad global matemática, pero sí ofreciendo soluciones cercanas al óptimo global requiriendo menor costo computacional \cite{blum2003}.
+
+Las metaheurísticas no dependen fuertemente de la estructura específica del problema \cite{blum2003}, ya que no requieren información analítica detallada y se basan principalmente en la evaluación de las posibles soluciones. Guían la búsqueda equilibrando la exploración y la explotación.
+
+La exploración consiste en dirigir la búsqueda hacia regiones del espacio de soluciones que aún no han sido visitadas. Su objetivo principal es garantizar una perspectiva global del problema y evitar que el algoritmo quede atrapado en un óptimo local (una solución que es mejor que todas sus vecinas inmediatas, pero que es inferior a la solución óptima global).
+
+Por su parte, la explotación se basa en aprovechar la información acumulada sobre las mejores soluciones encontradas hasta el momento, realizando una búsqueda local y exhaustiva en sus vecindarios inmediatos. El propósito es realizar pequeños cambios incrementales para converger rápidamente y refinar la calidad de las soluciones prometedoras.
+
+Entre las metaheurísticas más utilizadas en la confección de horarios destacan dos grandes familias. Las \textit{metaheurísticas de trayectoria única} operan sobre una sola solución y la modifican iterativamente: entre ellas se encuentran el recocido simulado \cite{kirkpatrick1983}, la búsqueda tabú \cite{glover1997} y GRASP \cite{feo1995}. Las \textit{metaheurísticas poblacionales}, en cambio, mantienen y evolucionan un conjunto de soluciones simultáneamente: los algoritmos genéticos \cite{holland1992} y la búsqueda desparramada son ejemplos representativos.
+
+Dado el potencial comprobado de estas estrategias algorítmicas para lidiar con la explosión combinatoria, la literatura científica ha documentado múltiples aplicaciones exitosas a lo largo de las décadas.
+
+\subsection{Estado del arte de los problemas de horarios}
+\label{sec:arte}
+
+En relación con los distintos tipos de problemas de horarios previamente descritos, es importante analizar las soluciones y enfoques que han sido propuestos en la literatura para abordar estos problemas. A continuación, se presenta una revisión de los principales trabajos asociados a cada uno de estos contextos.
+
+
+\subsubsection{Horario de facultad}
+
+El problema de generación automática de horarios en el ámbito universitario ha sido estudiado \cite{abdennadher2000, babaei2015, bazilio2021, ong2016}, dando lugar a diversas propuestas que abordan tanto su modelación como su resolución mediante técnicas de optimización \cite{babaei2015}. En este sentido se han desarrollado enfoques que van desde modelos matemáticos exactos \cite{portela2010} hasta métodos heurísticos y metaheurísticos \cite{segui2014}, así como sistemas integrales que combinan múltiples estrategias \cite{chang2014}.
+
+Para contextualizar estos enfoques, es necesario analizar los principales aportes desarrollados en la literatura, desde los primeros métodos hasta las aproximaciones más recientes.
+
+\paragraph{Contexto Internacional y Herramientas Externas}
+Desde el punto de vista algorítmico, trabajos pioneros como el de Abdennadher y Marte (2000) en la Universidad de Múnich \cite{abdennadher2000}, demostraron la viabilidad de utilizar reglas de manejo de restricciones (Constraint Handling Rules, CHR) para procesar tanto las exigencias inflexibles(restricciones duras) como las preferencias del personal docente (restricciones blandas que penalizan la calidad sin invalidarla). 
+
+Gracias a este enfoque, los autores lograron automatizar la generación de horarios que antes tomaban días de trabajo manual, reduciendo los conflictos a cero y demostrando la flexibilidad de los lenguajes declarativos para adaptarse a normativas institucionales dinámicas.
+
+En esta misma línea de satisfacción de restricciones, enfoques matemáticos como la coloración de grafos (documentado en el International Journal of Science and Research, 2019) \cite{reddy2019} han permitido modelar este entorno:  las asignaturas se representan como
+nodos y los conflictos de recursos o estudiantes en común se trazan como aristas, buscando una asignación donde ningún elemento adyacente comparta el mismo recurso o franja horaria \cite{reddy2019}. Sus resultados mostraron una alta eficiencia computacional para identificar incompatibilidades estrictas, generando grillas libres de colisiones rápidamente, aunque requiriendo algoritmos complementarios para optimizar las preferencias cualitativas.
+
+Si bien estos primeros enfoques operan como métodos matemáticos exactos garantizando una rigurosidad analítica, a medida que la escala de las instituciones crece, presentan severas limitaciones computacionales, es decir, un elevado costo en tiempo de ejecución y consumo de memoria \cite{babaei2015}. Esto ha impulsado el uso de enfoques colaborativos. 
+
+Investigaciones como las de Bazilio et al. (2021) \cite{bazilio2021} han destacado la efectividad de la optimización colaborativa, un enfoque en el que múltiples estrategias de búsqueda trabajan de manera conjunta e intercambian información para mejorar la calidad de las soluciones. En este contexto, los algoritmos poblacionales operan con un conjunto de soluciones candidatas en paralelo, mientras que los algoritmos genéricos proporcionan estrategias de optimización de propósito general aplicables a distintos problemas sin un diseño específico. Ambos se combinan con búsquedas locales para mejorar iterativamente los horarios a partir de soluciones parciales de mayor calidad. Del mismo modo, revisiones en publicaciones como Computers \& Industrial Engineering (Babaei et al., 2015)  \ \cite{babaei2015} confirman que las propuestas actuales alejan la automatización pura y se dirige hacia esquemas híbridos e interactivos, que integran distintos métodos de optimización y permiten la participación del usuario en la construcción y ajuste de las soluciones.
+
+El concepto de horarios interactivos (\textit{Interactive Timetabling}) \cite{muller2005} ha supuesto un avance relevante en este campo de investigación. Este enfoque es la base de sistemas de uso internacional como UniTime \cite{muller2005}, cuyo fundamento teórico fue desarrollado las investigaciones de Tomáš Müller \cite{muller2005}. Estos trabajos evidencian que, en la práctica, una generación automática de ``caja negra'' (donde el usuario ingresa datos y recibe un resultado final sin transparencia del proceso) rara vez satisface las necesidades reales. Por el contrario, se requiere un sistema que asista al planificador humano interactuando en la resolución de conflictos \cite{muller2005}.
+
+Esta necesidad de priorizar al usuario final ha motivado el diseño de plataformas especializadas de gestión académica. Trabajos como el de Ong Boon Chun (2016) \cite{ong2016} se han centrado en la arquitectura de software de planificación basado en web para universidades, demostrando que la gestión de restricciones duras y blandas requiere interfaces visuales modernas, entendidas como entornos gráficos interactivos que permiten al usuario manipular directamente los elementos del horario y visualizar de forma intuitiva el impacto de los cambios.
+
+En el ámbito industrial y comercial, existen soluciones impulsadas por inteligencia artificial y sistemas expertos, tales como Horarium.ai \cite{horarium} y plataformas educativas como aSc TimeTables \cite{asc}. Estas herramientas emplean matrices de tiempo interactivas, es decir, representaciones en forma de cuadrícula donde las actividades pueden reubicarse gráficamente, y donde la evaluación de restricciones opera en tiempo real, lo que significa que el sistema detecta y notifica inmediatamente cualquier violación de restricciones al modificar el horario.
+
+Sin embargo, estas soluciones suelen presentar arquitecturas cerradas, sistemas cuyo funcionamiento interno no es accesible ni modificable por el usuario, lo que dificulta la extracción de su motor de reglas, componente encargado de definir y gestionar las restricciones del sistema, así como su integración en tecnologías cotidianas, dinámicas o personalizadas adaptadas a las necesidades específicas de cada institución.
+
+A pesar de los avances existentes a nivel internacional, en la Facultad de Matemática y Computación de la Universidad de La Habana se han desarrollado diversas investigaciones relacionadas con el problema de generación de horarios.
+
+\paragraph{Antecedentes de la facultad de Matemática y Computación de la Universidad de la Habana}
+En la facultad, la confección del horario docente se ha realizado tradicionalmente de forma manual, mediante ajustes sucesivos hasta alcanzar una solución satisfactoria. Para sistematizar esta tarea, surgió una línea de investigación propia. Uno de los enfoques iniciales se basa en la programación entera, propuesto por Portela Aguilera (2010) \cite{portela2010}, donde se define un modelo con variables binarias para la asignación de actividades a intervalos de tiempo y espacios físicos. Aunque permite formalizar el problema, presentó limitaciones al enfrentar instancias reales complejas, lo que motiva el uso de metaheurísticas como el recocido simulado. Los resultados evidencian que la minimización de un único criterio no es suficiente, desta
+cando la necesidad de incorporar múltiples objetivos en la función de evaluación  \cite{portela2010}.
+
+En esta línea, Travieso Sosa (2012) \cite{travieso2012} introduce un aporte clave al definir un modelo de restricciones, entendido como una representación formal del conjunto de condiciones que deben cumplirse para que una solución sea válida, y orientado a la evaluación de la calidad de las soluciones mediante la verificación del cumplimiento de dichas condiciones. Propuso el concepto de ``felicidad'', definida cuantitativamente mediante un sistema de pesos y prioridades que otorga un mayor grado de influencia a las necesidades de actores específicos, reflejando así la jerarquía operativa de la institución y establece una función objetivo general adoptada en trabajos posteriores.
+
+A partir de esta base, Chang Alcover (2014) \cite{chang2014} modela el problema como un Problema de Satisfacción de Restricciones (CSP), aplicando \textit{backtracking} y técnicas de inferencia, así como métodos de búsqueda local.  Sus resultados muestran que la combinación de estrategias, espe
+cialmente en esquemas híbridos, permite mejorar el rendimiento en instancias complejas. \cite{chang2014}. 
+
+Paralelamente, otros trabajos se enfocan en mejorar la eficiencia computacional del proceso. Fernández Llanos (2014)  \cite{fernandez2014} propone una arquitectura basada en un API especializado para mejorar la eficiencia computacional, introduciendo la evaluación incremental (técnica que actualiza solo los componentes afectados por un cambio, sin recalcular toda la función objetivo). Este diseño sentó las bases para la implementación eficiente de algoritmos de búsqueda y ha sido utilizado como motor subyacente en sistemas posteriores.
+
+En cuanto a la optimización, Seguí Bonilla (2014) \cite{segui2014} explora diversas metaheurísticas de búsqueda local, tales como recocido simulado, búsqueda tabú y GRASP, concluyendo que aquellas que explotan de manera más intensiva la estructura del vecindario ofrecen mejores resultados. Por su parte, Tomás López (2014) \cite{tomas2014}  analiza metaheurísticas poblacionales, como algoritmos genéticos y búsqueda dispersa (Scatter Search), un método que combina soluciones de un conjunto de referencia para generar nuevas soluciones de alta calidad. Evidencia que estas últimas logran mejores soluciones a lo largo del proceso de búsqueda, aunque con mayores requerimientos computacionales. 
+
+La integración de estos enfoques se materializa en Quintero Rojas (2014) \cite{quintero2014},  quien desarrolla un sistema completo de gestión y generación de horarios, combinando modelos de restricciones, técnicas de optimización y herramientas de software en una plataforma unificada. Este tipo de soluciones representa un avance hacia la aplicación práctica de estos modelos teóricos institucionales, es decir, su incorporación en sistemas funcionales capaces de resolver problemas reales de generación de horarios mediante la implementación de dichos modelos en entornos computacionales.
+
+Más recientemente, Nardo González (2019) \cite{nardo2019} extiende la aplicación de estos modelos
+a problemas relacionados, como la planificación de defensas de tesis (la asignación de fechas, tribunales y aulas), demostrando la generalidad de estos enfoques. Finalmente, Casteleiro Wong (2022) \cite{casteleiro2022} se centra en la informatización integral de los procesos de gestión académica y administrativa relacionados con la actividad docente.
+
+La evolución de estos trabajos evidencia la posibilidad de optimizar horarios universitarios sujetos a restricciones normativas y preferencias humanas. De forma similar, esta necesidad de optimización se extiende a la programación televisiva.
+
+\subsubsection{Horario de televisión}
+
+A partir de la década de 1990, la literatura comenzó a abordar el problema de horarios televisivos mediante modelos exactos. Un trabajo representativo es el de Bollapragada et al. (2002) \cite{bollapragada2002}, donde se aplica la Programación Lineal Entera Mixta para la asignación. El modelo incorpora restricciones de separación de competidores, que exigen que programas de cadenas o contenidos rivales no coincidan en el mismo intervalo temporal para evitar la competencia directa por audiencia, y horarios topes, que imponen límites temporales estrictos sobre la ubicación o duración de ciertos eventos dentro de la parrilla de programación. 
+
+Los resultados demostraron mejoras de hasta un 15\% en la rentabilidad frente a la asignación manual \cite{bollapragada2002}; sin embargo, era costoso en términos computacionales para ajustes en tiempo real, demostrando que los métodos exactos son inflexibles ante modificaciones de última hora (como la extensión sorpresiva de un evento deportivo en vivo). Ante estas eventualidades, los programadores debían recurrir a ajustes manuales subóptimos o descartar la solución algorítmica por completo.
+
+Ante esta explosión combinatoria del problema, las investigaciones evolucionaron hacia la Satisfacción de Restricciones y metaheurísticas. Fernández y Salido (2008) \cite{fernandez2008} modelaron la parrilla como un CSP, separando las restricciones duras de las blandas. Mediante una descomposición del problema que reduce el espacio de búsqueda, lograron horarios factibles en minutos. En esta misma línea de optimización por penalizaciones, diversas investigaciones \cite{garcia2016} han utilizado Algoritmos Genéticos y Búsqueda Tabú con funciones de penalización ponderadas, en las que a cada incumplimiento de una restricción se le asigna un peso o costo específico según su importancia, de modo que el algoritmo busca minimizar una métrica que cuantifica las restricciones blandas violadas, es decir, aquellas condiciones cuya satisfacción no es obligatoria, pero cuya infracción degrada la calidad de la solución.
+
+A partir del 2015, la tendencia en revistas de alto impacto como IEEE Transactions on Broadcasting se ha desplazado hacia la Inteligencia Artificial predictiva, entendida como el uso de modelos de aprendizaje automático que analizan datos históricos para anticipar comportamientos futuros. Trabajos como los de Kim et al. (2021) \cite{kim2021} aplican el Aprendizaje por Refuerzo Profundo (Deep Reinforcement Learning), un enfoque en el que un agente aprende a tomar decisiones mediante la interacción con un entorno, optimizando una política de acción a partir de recompensas acumuladas, para predecir el rating, es decir, la medida de audiencia o nivel de visualización esperado de un programa televisivo, y decidir de forma autónoma la franja horaria de los programas. Los resultados muestran aumentos del 10\% en la retención de audiencia; no obstante, estos sistemas operan como cajas negras que requieren datos históricos.
+
+Tanto en el entorno universitario como en el televisivo, se hace evidente la necesidad de herramientas interactivas, donde el experto no es reemplazado, sino asistido. A partir de esta necesidad, surge el interés por los lenguajes específicos de dominio como herramienta para la definición declarativa de reglas.
+
+\section{Fundamentos de Lenguajes y Representación}
+
+Este capítulo presenta los fundamentos teóricos necesarios para el desarrollo de lenguajes y su procesamiento interno. Se abordan los conceptos clave relacionados con los lenguajes específicos de dominio, las estructuras de representación como los árboles de sintaxis abstracta y los mecanismos de transformación hacia código ejecutable, así como las capacidades de extensibilidad ofrecidas por Common Lisp. Estos elementos establecen la base conceptual sobre la cual se sustenta el resto del trabajo.
+
+\subsection{Lenguajes Específicos de Dominio (DSLs)}
+
+Los DSLs son lenguajes diseñados para resolver problemas dentro de un dominio particular. A diferencia de los lenguajes de propósito general (GPL), como C, Java o Python, están optimizados para expresar soluciones de forma concisa, declarativa y natural en un contexto específico, ofreciendo abstracciones de alto nivel alineadas con los conceptos del dominio. Esto permite que incluso expertos del dominio no programadores reduzcan la complejidad inherente a los lenguajes de propósito general.
+
+Los DSLs se clasifican en:
+\begin{itemize}
+    \item \textbf{Internos (embebidos):} Implementados dentro de un lenguaje anfitrión, aprovechando su sintaxis y capacidades (ej. librerías o APIs que imitan un lenguaje propio).
+    \item \textbf{Externos:} Definen su propia sintaxis y requieren herramientas específicas para su procesamiento, como analizadores léxicos y sintácticos.
+\end{itemize}
+
+\subsection{Árboles de Sintaxis Abstracta (AST) y Generación de Código}
+
+En el diseño de lenguajes de programación y, particularmente, de lenguajes específicos de dominio (DSL), es esencial comprender cómo se representan internamente los programas. El Árbol de Sintaxis Abstracta (AST) y la generación de código son conceptos clave para separar la especificación de un lenguaje de su ejecución.
+
+\subsubsection{Árbol de Sintaxis Abstracta (AST)}
+
+Un AST es una representación estructurada de un programa en forma de árbol que refleja la jerarquía lógica de sus componentes. Abstrae los detalles de la sintaxis concreta, reteniendo únicamente la información semánticamente relevante. Cada nodo del árbol corresponde a una entidad significativa del programa, lo que facilita su análisis y manipulación al obtener una forma más compacta que el código fuente original.
+
+\subsubsection{Generación de código}
+
+La generación de código transforma una representación interna de un programa (como un AST) en una forma ejecutable o en otro lenguaje de destino. Esta etapa conecta la especificación abstracta con su materialización concreta, traduciendo las estructuras semánticas a representaciones ejecutables por una máquina u otro sistema, preservando el comportamiento original del programa.
+
+\subsection{Common Lisp}
+
+Common Lisp destaca por su flexibilidad y su capacidad para extender el propio lenguaje. Es un lenguaje multiparadigma con herramientas avanzadas para manipular código como datos, lo que lo hace ideal para construir DSLs. Su propiedad homoicónica ---donde el código comparte la misma estructura que los datos--- permite transformar y generar programas directamente dentro del lenguaje. Dos mecanismos fundamentales en este contexto son los macros y las funciones genéricas.
+
+\subsubsection{Macros}
+
+Los macros son un mecanismo de metaprogramación que opera sobre representaciones simbólicas del código antes de su evaluación, permitiendo definir nuevas construcciones sintácticas. Así, extienden el lenguaje a nivel sintáctico para adaptarlo a necesidades específicas, elevando el nivel de abstracción, encapsulando patrones complejos y reduciendo la repetición. Son esenciales para crear DSLs, ya que posibilitan interfaces más declarativas donde el énfasis está en qué expresar, no en cómo implementarlo.
+
+\subsubsection{Funciones genéricas}
+
+Las funciones genéricas pertenecen al sistema de objetos de Common Lisp (CLOS). Definen una interfaz común que puede tener múltiples métodos especializados, y el método adecuado se selecciona mediante despacho dinámico según las características de los argumentos. Esto promueve la separación entre la definición de una operación y sus distintas implementaciones, favoreciendo la modularidad y extensibilidad: nuevas variantes de comportamiento pueden añadirse sin modificar las definiciones existentes.
+
+% ----------------------------------------------------------------------
+% BIBLIOGRAFÍA INCORPORADA AL DOCUMENTO
+% ----------------------------------------------------------------------
+
+\bibliographystyle{plain}
+\bibliography{referencias}
+
+\end{document}

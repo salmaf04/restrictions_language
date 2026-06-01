@@ -1,0 +1,247 @@
+{
+  "configuracion": {
+    "cant_grupos": 18,
+    "aulas": [
+      { "nombre": "Aula 1", "capacidad": 30 }, 
+      { "nombre": "Aula 2", "capacidad": 30 },
+      { "nombre": "Aula 3", "capacidad": 30 }, 
+      { "nombre": "Aula 4", "capacidad": 40 }, 
+      { "nombre": "Aula 5", "capacidad": 60 }, 
+      { "nombre": "Aula 6", "capacidad": 70 }, 
+      { "nombre": "Aula 7", "capacidad": 50 }, 
+      { "nombre": "Aula 8", "capacidad": 50 }, 
+      { "nombre": "Aula 9", "capacidad": 50 }, 
+      { "nombre": "Laboratorio", "capacidad": 60 }, 
+      { "nombre": "SEDER", "capacidad": null }
+    ],
+    "grupo_año": [
+      {
+        "año": "D1", 
+        "grupos": [
+          {"nombre": "11", "matricula": 30}
+          ]
+      },
+      {
+        "año": "D2", 
+        "grupos": [
+          {"nombre": "11", "matricula": 4}
+        ]
+      },
+      {
+        "año": "C1", 
+        "grupos": [
+          {"nombre": "11", "matricula": 30}, 
+          {"nombre": "12", "matricula": 31}, 
+          {"nombre": "13", "matricula": 28}, 
+          {"nombre": "21", "matricula": 30}, 
+          {"nombre": "22", "matricula": 27}
+        ]
+      },
+      {
+        "año": "C2", 
+        "grupos": [
+          {"nombre": "11", "matricula": 34}, 
+          {"nombre": "12", "matricula": 32}
+        ]
+      },
+      {
+        "año": "C3", 
+        "grupos": [
+          {"nombre": "11", "matricula": 30}, 
+          {"nombre": "12", "matricula": 28}
+        ]
+      },
+      {
+        "año": "C4", 
+        "grupos": [
+          {"nombre": "11", "matricula": 27}, 
+          {"nombre": "12", "matricula": 25}
+        ]
+      },
+      {
+        "año": "M1", 
+        "grupos": [
+          {"nombre": "11", "matricula": 25}, 
+          {"nombre": "12", "matricula": 30}
+        ]
+      },
+      {
+        "año": "M2", 
+        "grupos": [
+          {"nombre": "11", "matricula": 20}
+        ]
+      },
+      {
+        "año": "M3", 
+        "grupos": [
+          {"nombre": "11", "matricula": 12}
+        ]
+      },
+      {
+        "año": "M4", 
+        "grupos": [
+          {"nombre": "11", "matricula": 10}
+        ]
+      }
+    ],
+    "asignaturas_año": [
+      {
+        "año": "D1",
+        "asignaturas": [
+          { "nombre": "Álgebra Lineal C", "frecuencia": 2 },
+          { "nombre": "Álgebra Lineal CP", "frecuencia": 1 },
+          { "nombre": "Introducción a la Programación C", "frecuencia": 1 },
+          { "nombre": "Introducción a la Programación", "frecuencia": 1 },
+          { "nombre": "Lógica C", "frecuencia": 1 },
+          { "nombre": "Lógica CP", "frecuencia": 1 },
+          { "nombre": "Filosofía C", "frecuencia": 2 },
+          { "nombre": "Introducción a la Ciencia de Datos C", "frecuencia": 1 },
+          { "nombre": "Introducción a la Ciencia de Datos CP", "frecuencia": 1 },
+          { "nombre": "Análisis Matemático I C", "frecuencia": 2 },
+          { "nombre": "Análisis Matemático I CP", "frecuencia": 1 },
+          { "nombre": "Educación Física I", "frecuencia": 1 }
+        ]
+      },
+      {
+        "año": "D2",
+        "asignaturas": [
+          { "nombre": "Matemática y Aplicaciones C", "frecuencia": 2 },
+          { "nombre": "Matemática y Aplicaciones CP", "frecuencia": 1 },
+          { "nombre": "Estructura de Datos C", "frecuencia": 1 },
+          { "nombre": "Estructura de Datos CP", "frecuencia": 1 },
+          { "nombre": "Bases de Datos C", "frecuencia": 1 },
+          { "nombre": "Bases de Datos CP", "frecuencia": 1 },
+          { "nombre": "Probabilidades C", "frecuencia": 1 },
+          { "nombre": "Probabilidades CP", "frecuencia": 1 },
+          { "nombre": "Economía Política C", "frecuencia": 2 },
+          { "nombre": "Visualización de Datos C", "frecuencia": 1 },
+          { "nombre": "Educación Física III", "frecuencia": 1 }
+        ]
+      },
+      {
+        "año": "C1",
+        "asignaturas": [
+          { "nombre": "Filosofía C", "frecuencia": 2 },
+          { "nombre": "Programación C", "frecuencia": 1 },
+          { "nombre": "Programación CP", "frecuencia": 2 },
+          { "nombre": "Lógica C", "frecuencia": 1 },
+          { "nombre": "Lógica CP", "frecuencia": 1 },
+          { "nombre": "Álgebra I C", "frecuencia": 2 },
+          { "nombre": "Álgebra I CP", "frecuencia": 1 },
+          { "nombre": "Análisis Matemático I C", "frecuencia": 2 },
+          { "nombre": "Análisis Matemático I CP", "frecuencia": 1 },
+          { "nombre": "Educación Física I", "frecuencia": 1 }
+        ]
+      },
+      {
+        "año": "C2",
+        "asignaturas": [
+          { "nombre": "Estructuras de Datos y Algoritmos I C", "frecuencia": 1 },
+          { "nombre": "Estructuras de Datos y Algoritmos I CP", "frecuencia": 1 },
+          { "nombre": "Ecuaciones Diferenciales Ordinarias C", "frecuencia": 1 },
+          { "nombre": "Ecuaciones Diferenciales Ordinarias I CP", "frecuencia": 1 },
+          { "nombre": "Arquitectura de computadoras C", "frecuencia": 1 },
+          { "nombre": "Arquitectura de computadoras CP", "frecuencia": 1 },
+          { "nombre": "Matemática Discreta I C", "frecuencia": 1 },
+          { "nombre": "Matemática Discreta I CP", "frecuencia": 1 },
+          { "nombre": "Matemática Numérica C", "frecuencia": 1 },
+          { "nombre": "Matemática Numérica CP", "frecuencia": 1 },
+          { "nombre": "Teoría Política C", "frecuencia": 2 },
+          { "nombre": "Educación Física III", "frecuencia": 1 }
+        ]
+      },
+      {
+        "año": "C3",
+        "asignaturas": [
+          { "nombre": "Ingeniería de Software C", "frecuencia": 1 },
+          { "nombre": "Ingeniería de Software CP", "frecuencia": 1 },
+          { "nombre": "Redes de Computadoras C", "frecuencia": 1 },
+          { "nombre": "Redes de Computadoras CP", "frecuencia": 1 },
+          { "nombre": "Estadística C", "frecuencia": 1 },
+          { "nombre": "Estadística CP", "frecuencia": 1 },
+          { "nombre": "Bases de Datos II C", "frecuencia": 1 },
+          { "nombre": "Bases de Datos II CP", "frecuencia": 1 },
+          { "nombre": "Lenguaje de Programación C", "frecuencia": 1 },
+          { "nombre": "Lenguaje de Programación CP", "frecuencia": 1 },
+          { "nombre": "Programación Declarativa C", "frecuencia": 1 },
+          { "nombre": "Programación Declarativa CP", "frecuencia": 1 }
+        ]
+      },
+      {
+        "año": "C4",
+        "asignaturas": [
+          { "nombre": "Sistemas de Recuperación de la Información C", "frecuencia": 1 },
+          { "nombre": "Sistemas de Recuperación de la Información CP", "frecuencia": 1 },
+          { "nombre": "Compilación C", "frecuencia": 1 },
+          { "nombre": "Compilación CP", "frecuencia": 1 },
+          { "nombre": "Estudios de Ciencia, Tecnología y Sociedad C", "frecuencia": 2 },
+          { "nombre": "Simulación C", "frecuencia": 1 },
+          { "nombre": "Simulación CP", "frecuencia": 1 },
+          { "nombre": "Inteligencia Artificial C", "frecuencia": 1 },
+          { "nombre": "Inteligencia Artificial CP", "frecuencia": 1 },
+          { "nombre": "Modelos Matemáticos Aplicados C", "frecuencia": 1 }
+        ]
+      },
+      {
+        "año": "M1",
+        "asignaturas": [
+          { "nombre": "Programación y Algoritmos C", "frecuencia": 1 },
+          { "nombre": "Programación y Algoritmos CP", "frecuencia": 1 },
+          { "nombre": "Geometría Analítica C", "frecuencia": 2 },
+          { "nombre": "Geometría Analítica CP", "frecuencia": 1 },
+          { "nombre": "Introducción al Análisis Matemático C", "frecuencia": 2 },
+          { "nombre": "Introducción al Análisis Matemático CP", "frecuencia": 1 },
+          { "nombre": "Introducción a la Matemática C", "frecuencia": 1 },
+          { "nombre": "Introducción al Álgebra C", "frecuencia": 2 },
+          { "nombre": "Introducción al Álgebra CP", "frecuencia": 1 },
+          { "nombre": "Filosofía C", "frecuencia": 2 },
+          { "nombre": "Educación Física I", "frecuencia": 1 }
+        ]
+      },
+      {
+        "año": "M2",
+        "asignaturas": [
+          { "nombre": "Complementos de Álgebra Lineal C", "frecuencia": 2 },
+          { "nombre": "Complementos de Álgebra Lineal CP", "frecuencia": 2 },
+          { "nombre": "Funciones de Varias Variables C", "frecuencia": 2 },
+          { "nombre": "Funciones de Varias Variables CP", "frecuencia": 2 },
+          { "nombre": "Economía Política C", "frecuencia": 2 },
+          { "nombre": "Educación Física III", "frecuencia": 1 },
+          { "nombre": "Asignatura Electiva I", "frecuencia": 1 },
+          { "nombre": "Seminario de Problemas II", "frecuencia": 1 }
+        ]
+      },
+      {
+        "año": "M3",
+        "asignaturas": [
+          { "nombre": "Teoría Política C", "frecuencia": 1 },
+          { "nombre": "Inferencia Estadística C", "frecuencia": 2 },
+          { "nombre": "Inferencia Estadística CP", "frecuencia": 1 },
+          { "nombre": "Matemática Numérica C", "frecuencia": 1 },
+          { "nombre": "Matemática Numérica CP", "frecuencia": 1 },
+          { "nombre": "Ecuaciones Diferenciales Ordinarias C", "frecuencia": 2 },
+          { "nombre": "Ecuaciones Diferenciales Ordinarias CP", "frecuencia": 1 },
+          { "nombre": "Funciones de variable Compleja C", "frecuencia": 2 },
+          { "nombre": "Funciones de variable Compleja CP", "frecuencia": 1 },
+          { "nombre": "Optimización Matemática I C", "frecuencia": 2 },
+          { "nombre": "Asignatura Optativa I", "frecuencia": 1 }
+        ]
+      },
+      {
+        "año": "M4",
+        "asignaturas": [
+          { "nombre": "Ecuaciones en Derivadas Parciales C", "frecuencia": 1 },
+          { "nombre": "Ecuaciones en Derivadas Parciales CP", "frecuencia": 1 },
+          { "nombre": "Topología C", "frecuencia": 1 },
+          { "nombre": "Topología CP", "frecuencia": 1 },
+          { "nombre": "Seminario de Problemas III", "frecuencia": 1 },
+          { "nombre": "Matemática Numérica II C", "frecuencia": 1 },
+          { "nombre": "Matemática Numérica II CP", "frecuencia": 1 },
+          { "nombre": "Optimización Matemática II C", "frecuencia": 1 },
+          { "nombre": "Optimización Matemática II CP", "frecuencia": 1 },
+          { "nombre": "Asignatura Optativa II", "frecuencia": 1 }
+        ]
+      }
+    ]
+  }
+}
