@@ -24,9 +24,6 @@
    (nombre :initarg :nombre :accessor profesor-nombre)
    (grado  :initarg :grado  :accessor profesor-grado)))
 
-(defun def-profesor (id nombre grado)
-  (make-instance 'ref-especifica-a-profesor :id id :nombre nombre :grado grado))
-
 ;; --- ESTUDIANTE ---
 (def-entidad estudiante id nombre)
 
@@ -36,9 +33,6 @@
 (defclass ref-especifica-a-estudiante (ref-especifica-ent)
   ((id     :initarg :id     :accessor estudiante-id)
    (nombre :initarg :nombre :accessor estudiante-nombre)))
-
-(defun def-estudiante (id nombre)
-  (make-instance 'ref-especifica-a-estudiante :id id :nombre nombre))
 
 ;; --- TESIS ---
 (def-entidad tesis id estudiante tutor oponente presidente secretario vocal)
@@ -54,11 +48,6 @@
    (presidente :initarg :presidente :accessor tesis-presidente)
    (secretario :initarg :secretario :accessor tesis-secretario)
    (vocal      :initarg :vocal      :accessor tesis-vocal)))
-
-(defun def-tesis (id estudiante tutor oponente presidente secretario vocal)
-  (make-instance 'ref-especifica-a-tesis
-                 :id id :estudiante estudiante :tutor tutor :oponente oponente
-                 :presidente presidente :secretario secretario :vocal vocal))
 
 ;; --- DÍA ---
 ;; Valores posibles: 1/6, 2/6, 3/6
@@ -92,8 +81,6 @@
 (defclass ref-especifica-a-local (ref-especifica-ent)
   ((nombre :initarg :nombre :accessor local-nombre)))
 
-(defun def-local (nombre) (make-instance 'ref-especifica-a-local :nombre nombre))
-
 ;; --- PLANIFICACIÓN ---
 ;; Asocia una tesis con un local, un día y una hora
 (def-entidad planificacion tesis local dia hora)
@@ -106,10 +93,6 @@
    (local  :initarg :local  :accessor planificacion-local)
    (dia    :initarg :dia    :accessor planificacion-dia)
    (hora   :initarg :hora   :accessor planificacion-hora)))
-
-(defun def-planificacion (tesis local dia hora)
-  (make-instance 'ref-especifica-a-planificacion :tesis tesis :local local :dia dia :hora hora))
-
 
 ;; =====================================================================
 ;; RESTRICCIONES Y CONSULTAS (CONSTRUIDAS CON EL AST)
