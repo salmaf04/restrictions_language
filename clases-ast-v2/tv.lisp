@@ -1,3 +1,7 @@
+;; =====================================================================
+;; MODELADO DEL DOMINIO: HORARIO DE TELEVISIÓN
+;; =====================================================================
+
 ;; --- PROGRAMA ---
 (def-entidad programa nombre tipo publico)
 
@@ -69,51 +73,61 @@
    (hora-fin    :initarg :hora-fin    :accessor rango-fin)))
 
 ;; --- PLANIFICACIÓN ---
-(def-entidad planificacion (hora inicio, dia, programacion, duracion-programa))
+(def-entidad planificacion hora-inicio dia programacion duracion-programa)
 
 (defclass ref-gen-a-planificacion (ref-gen-entidad) ())
 (defvar planificacion (make-instance 'ref-gen-a-planificacion :nombre-entidad 'planificacion))
 
 (defclass ref-especifica-a-planificacion (ref-especifica-ent) 
-  ((hora-inicio :initarg :hora-inicio :accessor planificacion-hora-inicio
-    dia :initarg :dia :accessor planificacion-dia
-    progrmacion :initarg :progrmacion :accessor planificacion-progrmacion
-    duracion-programa :initarg :duracion-programa :accessor planificacion-duracion-programa)))
+  ((hora-inicio       :initarg :hora-inicio       :accessor planificacion-hora-inicio)
+   (dia               :initarg :dia               :accessor planificacion-dia)
+   (programacion      :initarg :programacion      :accessor planificacion-programacion)
+   (duracion-programa :initarg :duracion-programa :accessor planificacion-duracion-programa)))
 
-;; Restricción: No pueden haber dos programas del mismo tipo seguidos
 
+;; =====================================================================
+;; RESTRICCIONES Y CONSULTAS (CONSTRUIDAS CON EL AST OPTIMIZADO)
+;; =====================================================================
+
+;; Restricción: No pueden haber dos programas del mismo tipo seguidos (adyacentes)
 (defvar consulta-adyacentes-mismo-tipo
-  (make-instance 'consulta-simple
+  (def-consulta-simple
     :args '(planificacion-actual)
     :variable-iteracion '(asig-1 asig-2)
     :dominio-iteracion planificacion 
     
     :comprobacion 
-    (make-instance 'op-and
-      ;; Mismo día y mismo tipo
-      :izq (make-instance 'op-and
-             :izq (make-instance 'op-igual
-                    :izq (make-instance 'acceso-a-atributo-de-entidad :atributo 'dia :entidad 'asig-1)
-                    :der (make-instance 'acceso-a-atributo-de-entidad :atributo 'dia :entidad 'asig-2))
-             :der (make-instance 'op-igual
-                    :izq (make-instance 'acceso-a-atributo-de-entidad :atributo 'tipo 
-                           :entidad (make-instance 'acceso-a-atributo-de-entidad :atributo 'programa :entidad 'asig-1))
-                    :der (make-instance 'acceso-a-atributo-de-entidad :atributo 'tipo 
-                           :entidad (make-instance 'acceso-a-atributo-de-entidad :atributo 'programa :entidad 'asig-2))))
+    (def-and 
+      ;; --- Bloque Izquierdo: Mismo día AND Mismo tipo ---
+      (def-and 
+        ;; Mismo día
+        (def-igual (def-acceso-atributo 'asig-1 'dia) 
+                   (def-acceso-atributo 'asig-2 'dia))
+        ;; Mismo tipo de programa (Acceso anidado: asig -> programa -> tipo)
+        (def-igual (def-acceso-atributo (def-acceso-atributo 'asig-1 'programa) 'tipo)
+                   (def-acceso-atributo (def-acceso-atributo 'asig-2 'programa) 'tipo)))
       
-      ;; Adyacencia (Fin de 1 == Inicio de 2  Ó  Fin de 2 == Inicio de 1)
-      :der (make-instance 'op-or
-             :izq (make-instance 'op-igual
-                    :izq (make-instance 'op-suma 
-                           :izq (make-instance 'acceso-a-atributo-de-entidad :atributo 'hora-inicio :entidad 'asig-1)
-                           :der (make-instance 'acceso-a-atributo-de-entidad :atributo 'duracion :entidad 'asig-1))
-                    :der (make-instance 'acceso-a-atributo-de-entidad :atributo 'hora-inicio :entidad 'asig-2))
-             :der (make-instance 'op-igual
-                    :izq (make-instance 'op-suma 
-                           :izq (make-instance 'acceso-a-atributo-de-entidad :atributo 'hora-inicio :entidad 'asig-2)
-                           :der (make-instance 'acceso-a-atributo-de-entidad :atributo 'duracion :entidad 'asig-2))
-                    :der (make-instance 'acceso-a-atributo-de-entidad :atributo 'hora-inicio :entidad 'asig-1))))
+      ;; --- Bloque Derecho: Adyacencia Temporal (Fin1 == Inicio2 Ó Fin2 == Inicio1) ---
+      (def-or 
+        ;; ¿Termina asig-1 cuando arranca asig-2?
+        (def-igual (def-suma (def-acceso-atributo 'asig-1 'hora-inicio) 
+                             (def-acceso-atributo 'asig-1 'duracion))
+                   (def-acceso-atributo 'asig-2 'hora-inicio))
+        ;; ¿Termina asig-2 cuando arranca asig-1?
+        (def-igual (def-suma (def-acceso-atributo 'asig-2 'hora-inicio) 
+                             (def-acceso-atributo 'asig-2 'duracion))
+                   (def-acceso-atributo 'asig-1 'hora-inicio))))
     
     :operacion 'contar
     :retorno 'cantidad-adyacentes))
+
+;; =====================================================================
+;; DEFINICIÓN DE LA RESTRICCIÓN
+;; =====================================================================
+
+;; NPPQ: No Puede Pasar Que (La cantidad de adyacentes del mismo tipo sea > 0)
+(defvar restriccion-sin-adyacentes-mismo-tipo
+  (def-nppq 
+    ;; Comprobación lógica: ¿El resultado de la consulta es mayor a 0?
+    (def-mayor consulta-adyacentes-mismo-tipo 0)))
 
