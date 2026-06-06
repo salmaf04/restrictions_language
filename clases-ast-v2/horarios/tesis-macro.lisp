@@ -79,5 +79,56 @@
 ;; RESTRICCIONES
 ;; =====================================================================
 
+;; Restricción fuerte: ningún profesor en dos defensas a la vez
 (defvar restriccion-sin-conflictos-de-horario
   (def-nppq (def-op-mayor conflictos-de-horario 0)))
+
+
+;; Cuenta cuántos días distintos tiene que asistir un profesor dado
+(def-consulta dias-asistidos (prof)
+  :itera-sobre (asig asignacion)
+  :comprueba (profesor-en-tribunal prof asig)
+  :operacion contar-distintos-dias
+  :devuelve n-dias)
+
+;; Restricción blanda: minimizar la carga del profesor que más días asiste
+;; (el que más días tiene que ir, que vaya los menos posibles)
+(defvar restriccion-minimizar-carga-maxima
+  (def-minimizar dias-asistidos profesor))
+
+
+;; =====================================================================
+;; DATOS CONCRETOS DEL DOMINIO
+;; =====================================================================
+
+;; Profesores
+(def-profesor prof-piad     "Alejandro Piad"    grado-dr)
+(def-profesor prof-suarez   "Carlos Suarez"     grado-msc)
+(def-profesor prof-garcia   "Maria Garcia"      grado-dr)
+(def-profesor prof-torres   "Luis Torres"       grado-msc)
+(def-profesor prof-mendez   "Ana Mendez"        grado-dr)
+(def-profesor prof-herrera  "Pedro Herrera"     grado-msc)
+
+;; Estudiantes
+(def-estudiante est-rodriguez "Laura Rodriguez")
+(def-estudiante est-fernandez "Carlos Fernandez")
+(def-estudiante est-lopez     "Sofia Lopez")
+
+;; Tribunales (uno por defensa)
+(def-tribunal trib-1 est-rodriguez prof-piad   prof-suarez  prof-garcia  prof-torres  prof-mendez)
+(def-tribunal trib-2 est-fernandez prof-garcia prof-herrera prof-piad    prof-suarez  prof-torres)
+(def-tribunal trib-3 est-lopez     prof-mendez prof-torres  prof-suarez  prof-herrera prof-garcia)
+
+;; Fechas disponibles
+(def-fecha fecha-1 1 6)
+(def-fecha fecha-2 2 6)
+(def-fecha fecha-3 3 6)
+
+;; Momentos disponibles
+(def-momento momento-manana 9)
+(def-momento momento-mediodia 11)
+(def-momento momento-tarde 14)
+
+;; Locales disponibles
+(def-local local-a "Sala A")
+(def-local local-b "Sala B")
