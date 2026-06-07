@@ -40,10 +40,10 @@
                 defclass*,def-entidad,def-comb,def-consulta,
                 def-nppq,def-tqpq,def-tdpq,def-sbqp,
                 def-minimizar,def-maximizar,
-                def-op-and,def-op-or,def-op-not,
-                def-op-igual,def-op-distinto,
-                def-op-mayor,def-op-menor,
-                def-op-mayor-igual,def-op-menor-igual,
+                op-and,op-or,op-not,
+                op-igual,op-distinto,
+                op-mayor,op-menor,
+                op-mayor-igual,op-menor-igual,
                 generar-python},
   sensitive=false,
   morecomment=[l]{;;},
@@ -383,15 +383,15 @@ Para construir condiciones se dispone de los siguientes operadores:
 \toprule
 \textbf{Macro} & \textbf{Significado} \\
 \midrule
-\code{def-op-and e1 e2 \ldots} & Conjunción ($e_1 \wedge e_2 \wedge \cdots$) \\
-\code{def-op-or  e1 e2 \ldots} & Disyunción ($e_1 \vee e_2 \vee \cdots$) \\
-\code{def-op-not e}            & Negación ($\neg e$) \\
-\code{def-op-igual a b}        & Igualdad ($a = b$) \\
-\code{def-op-distinto a b}     & Desigualdad ($a \neq b$) \\
-\code{def-op-mayor a b}        & Mayor estricto ($a > b$) \\
-\code{def-op-menor a b}        & Menor estricto ($a < b$) \\
-\code{def-op-mayor-igual a b}  & Mayor o igual ($a \geq b$) \\
-\code{def-op-menor-igual a b}  & Menor o igual ($a \leq b$) \\
+\code{op-and e1 e2 \ldots} & Conjunción ($e_1 \wedge e_2 \wedge \cdots$) \\
+\code{op-or  e1 e2 \ldots} & Disyunción ($e_1 \vee e_2 \vee \cdots$) \\
+\code{op-not e}            & Negación ($\neg e$) \\
+\code{op-igual a b}        & Igualdad ($a = b$) \\
+\code{op-distinto a b}     & Desigualdad ($a \neq b$) \\
+\code{op-mayor a b}        & Mayor estricto ($a > b$) \\
+\code{op-menor a b}        & Menor estricto ($a < b$) \\
+\code{op-mayor-igual a b}  & Mayor o igual ($a \geq b$) \\
+\code{op-menor-igual a b}  & Menor o igual ($a \leq b$) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -587,12 +587,12 @@ tribunal de una asignación dada:
 \begin{lstlisting}[style=lisp, caption={Consulta auxiliar: profesor en tribunal}]
 (def-consulta profesor-en-tribunal (prof asig)
   :comprueba
-  (def-op-or
-    (def-op-igual (tutor      (tribunal asig)) prof)
-    (def-op-igual (oponente   (tribunal asig)) prof)
-    (def-op-igual (presidente (tribunal asig)) prof)
-    (def-op-igual (vocal      (tribunal asig)) prof)
-    (def-op-igual (secretario (tribunal asig)) prof)))
+  (op-or
+    (op-igual (tutor      (tribunal asig)) prof)
+    (op-igual (oponente   (tribunal asig)) prof)
+    (op-igual (presidente (tribunal asig)) prof)
+    (op-igual (vocal      (tribunal asig)) prof)
+    (op-igual (secretario (tribunal asig)) prof)))
 \end{lstlisting}
 
 El acceso encadenado \code{(tutor (tribunal asig))} navega los atributos
@@ -644,12 +644,12 @@ asignaciones presentan conflicto de horario:
 (def-consulta conflictos-de-horario ()
   :itera-sobre (p profesor) (a1 asignacion) (a2 asignacion)
   :comprueba
-  (def-op-and
+  (op-and
     (profesor-en-tribunal p a1)
     (profesor-en-tribunal p a2)
-    (def-op-igual    (fecha    a1) (fecha    a2))
-    (def-op-igual    (momento  a1) (momento  a2))
-    (def-op-distinto (tribunal a1) (tribunal a2)))
+    (op-igual    (fecha    a1) (fecha    a2))
+    (op-igual    (momento  a1) (momento  a2))
+    (op-distinto (tribunal a1) (tribunal a2)))
   :operacion suma
   :devuelve  n-conflictos)
 \end{lstlisting}
@@ -698,7 +698,7 @@ profesores:
 
 \begin{lstlisting}[style=lisp, caption={Restricción nppq: sin conflictos de horario}]
 (defvar restriccion-sin-conflictos-de-horario
-  (def-nppq (def-op-mayor conflictos-de-horario 0)))
+  (def-nppq (op-mayor conflictos-de-horario 0)))
 \end{lstlisting}
 
 \subsubsection{Restricción tqpq (Todo Que Pasa Que)}
@@ -1116,23 +1116,23 @@ de prueba del sistema.
 ;; Auxiliar: profesor pertenece al tribunal de la asignacion
 (def-consulta profesor-en-tribunal (prof asig)
   :comprueba
-  (def-op-or
-    (def-op-igual (tutor      (tribunal asig)) prof)
-    (def-op-igual (oponente   (tribunal asig)) prof)
-    (def-op-igual (presidente (tribunal asig)) prof)
-    (def-op-igual (vocal      (tribunal asig)) prof)
-    (def-op-igual (secretario (tribunal asig)) prof)))
+  (op-or
+    (op-igual (tutor      (tribunal asig)) prof)
+    (op-igual (oponente   (tribunal asig)) prof)
+    (op-igual (presidente (tribunal asig)) prof)
+    (op-igual (vocal      (tribunal asig)) prof)
+    (op-igual (secretario (tribunal asig)) prof)))
 
 ;; Cuenta pares de defensas con conflicto de horario
 (def-consulta conflictos-de-horario ()
   :itera-sobre (p profesor) (a1 asignacion) (a2 asignacion)
   :comprueba
-  (def-op-and
+  (op-and
     (profesor-en-tribunal p a1)
     (profesor-en-tribunal p a2)
-    (def-op-igual    (fecha    a1) (fecha    a2))
-    (def-op-igual    (momento  a1) (momento  a2))
-    (def-op-distinto (tribunal a1) (tribunal a2)))
+    (op-igual    (fecha    a1) (fecha    a2))
+    (op-igual    (momento  a1) (momento  a2))
+    (op-distinto (tribunal a1) (tribunal a2)))
   :operacion suma
   :devuelve  n-conflictos)
 
@@ -1148,7 +1148,7 @@ de prueba del sistema.
 
 ;; DURA: ningun profesor en dos defensas al mismo tiempo
 (defvar restriccion-sin-conflictos-de-horario
-  (def-nppq (def-op-mayor conflictos-de-horario 0)))
+  (def-nppq (op-mayor conflictos-de-horario 0)))
 
 ;; BLANDA: minimizar la carga del profesor que mas dias asiste
 (defvar restriccion-minimizar-carga-maxima
@@ -1294,13 +1294,13 @@ Antes de llamar a \code{generar-python}, conviene verificar lo siguiente:
 \code{def-sbqp cond} & Restricción blanda (como tqpq) \\
 \code{def-minimizar consulta dominio} & Objetivo: minimizar máximo de consulta \\
 \code{def-maximizar consulta dominio} & Objetivo: maximizar mínimo de consulta \\
-\code{def-op-and e1 e2 ...} & Conjunción de expresiones \\
-\code{def-op-or e1 e2 ...} & Disyunción de expresiones \\
-\code{def-op-not e} & Negación \\
-\code{def-op-igual a b} & Igualdad \\
-\code{def-op-distinto a b} & Desigualdad \\
-\code{def-op-mayor a b} & $a > b$ \\
-\code{def-op-menor a b} & $a < b$ \\
+\code{op-and e1 e2 ...} & Conjunción de expresiones \\
+\code{op-or e1 e2 ...} & Disyunción de expresiones \\
+\code{op-not e} & Negación \\
+\code{op-igual a b} & Igualdad \\
+\code{op-distinto a b} & Desigualdad \\
+\code{op-mayor a b} & $a > b$ \\
+\code{op-menor a b} & $a < b$ \\
 \code{(slot entidad)} & Acceso a un atributo de una entidad en el AST \\
 \code{generar-python archivo \&key ...} & Genera el archivo Python \\
 \bottomrule

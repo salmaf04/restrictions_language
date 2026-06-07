@@ -65,28 +65,28 @@
 ;; Auxiliar: ¿está el profesor prof en el tribunal de la asignación asig?
 (def-consulta profesor-en-tribunal (prof asig)
   :comprueba
-  (def-op-or (def-op-igual (tutor      (tribunal asig)) prof)
-             (def-op-igual (oponente   (tribunal asig)) prof)
-             (def-op-igual (presidente (tribunal asig)) prof)
-             (def-op-igual (vocal      (tribunal asig)) prof)
-             (def-op-igual (secretario (tribunal asig)) prof)))
+  (op-or (op-igual (tutor      (tribunal asig)) prof)
+             (op-igual (oponente   (tribunal asig)) prof)
+             (op-igual (presidente (tribunal asig)) prof)
+             (op-igual (vocal      (tribunal asig)) prof)
+             (op-igual (secretario (tribunal asig)) prof)))
 
 
 ;; Consulta: cuántas veces un profesor está en dos defensas simultáneas
 (def-consulta conflictos-de-horario ()
   :itera-sobre (p profesor) (a1 asignacion) (a2 asignacion)
   :comprueba
-  (def-op-and (profesor-en-tribunal p a1)
+  (op-and (profesor-en-tribunal p a1)
               (profesor-en-tribunal p a2)
-              (def-op-igual    (fecha    a1) (fecha    a2))
-              (def-op-igual    (momento  a1) (momento  a2))
-              (def-op-distinto (tribunal a1) (tribunal a2)))
+              (op-igual    (fecha    a1) (fecha    a2))
+              (op-igual    (momento  a1) (momento  a2))
+              (op-distinto (tribunal a1) (tribunal a2)))
   :operacion suma
   :devuelve 1)
 
 ;; Restricción DURA (nppq): ningún profesor puede estar en dos defensas a la vez
 (defvar restriccion-sin-conflictos-de-horario
-  (def-nppq (def-op-mayor conflictos-de-horario 0)))
+  (def-nppq (op-mayor conflictos-de-horario 0)))
 
 
 ;; Consulta: cuántos días distintos asiste un profesor

@@ -23,9 +23,9 @@
 ;; =====================================================================
 
 ;; Expande formatos compactos de slot a la forma canÃ³nica de defclass:
-;;   (nombre accessor)          â†’ (nombre :initarg :nombre   :accessor accessor)
-;;   (nombre :initarg-kw acc)   â†’ (nombre :initarg :initarg-kw :accessor acc)
-;;   forma canÃ³nica             â†’ se deja pasar tal cual
+;;   (nombre accessor)          â†' (nombre :initarg :nombre   :accessor accessor)
+;;   (nombre :initarg-kw acc)   â†' (nombre :initarg :initarg-kw :accessor acc)
+;;   forma canÃ³nica             â†' se deja pasar tal cual
 (defun %expand-slot (slot)
   (cond ((= (length slot) 2)
          `(,(first slot) :initarg ,(intern (symbol-name (first slot)) :keyword)
@@ -35,21 +35,28 @@
         (t slot)))
 
 
-;; Genera (defclass NOMBRE PADRES SLOTS), el constructor (defun def-NOMBRE PARAMS ...)
+;; Genera (defclass NOMBRE PADRES SLOTS), el constructor (defun CONSTRUCTOR PARAMS ...)
 ;; y una funciÃ³n de acceso AST por cada slot: (defun INITARG (entidad) ...).
 ;;
 ;; Slots pueden escribirse en formato compacto:
-;;   (nombre accessor)         â†’ initarg derivado del nombre del slot
-;;   (nombre :initarg-kw acc)  â†’ initarg explÃ­cito (cuando difiere del nombre)
+;;   (nombre accessor)         â†' initarg derivado del nombre del slot
+;;   (nombre :initarg-kw acc)  â†' initarg explÃ­cito (cuando difiere del nombre)
 ;;
 ;; Params-extra opcionales:
-;;   :key            â†’ constructor con &key (params derivados de los slots)
-;;   :variadic p1 p2 â†’ constructor variÃ¡dico que encadena N args por reducciÃ³n
-;;   p1 p2           â†’ constructor posicional con params explÃ­citos
-;;   (vacÃ­o y sin slots) â†’ solo defclass, sin constructor ni accesores
+;;   :fn-name sym    â†' nombre explÃ­cito del constructor (por defecto: DEF-NOMBRE)
+;;   :key            â†' constructor con &key (params derivados de los slots)
+;;   :variadic p1 p2 â†' constructor variÃ¡dico que encadena N args por reducciÃ³n
+;;   p1 p2           â†' constructor posicional con params explÃ­citos
+;;   (vacÃ­o y sin slots) â†' solo defclass, sin constructor ni accesores
 (defmacro def-clase (nombre padres slots &rest params-extra)
-  (let* ((nombre-str  (symbol-name nombre))
-         (fn-sym      (intern (concatenate 'string "DEF-" nombre-str)))
+  (let* ((fn-name-pos  (position :fn-name params-extra))
+         (fn-override  (when fn-name-pos (nth (1+ fn-name-pos) params-extra)))
+         (params-extra (if fn-name-pos
+                           (append (subseq params-extra 0 fn-name-pos)
+                                   (subseq params-extra (+ fn-name-pos 2)))
+                           params-extra))
+         (nombre-str  (symbol-name nombre))
+         (fn-sym      (or fn-override (intern (concatenate 'string "DEF-" nombre-str))))
          (keyword-p   (equal params-extra '(:key)))
          (variadic-p  (eq (first params-extra) :variadic))
          (real-extra  (if variadic-p (rest params-extra) params-extra))
@@ -111,13 +118,18 @@
                grupos)))
 
 
-;; Define en una sola forma un grupo de subclases que comparten el mismo padre
-;; y el mismo constructor. Expande a (def-clase NOMBRE (PADRE) () PARAMS...) por cada nombre.
+;; Define en una sola forma un grupo de subclases que comparten el mismo padre.
+;; Si params contiene :self-named, cada subclase usa su propio nombre como
+;; constructor (sin prefijo DEF-). Sin :self-named, el constructor es DEF-NOMBRE.
 (defmacro def-subclases (padre params &rest nombres)
-  `(progn
-     ,@(mapcar (lambda (nombre)
-                 `(def-clase ,nombre (,padre) () ,@params))
-               nombres)))
+  (let* ((self-p      (member :self-named params))
+         (clean-params (remove :self-named params)))
+    `(progn
+       ,@(mapcar (lambda (nombre)
+                   (if self-p
+                       `(def-clase ,nombre (,padre) () :fn-name ,nombre ,@clean-params)
+                       `(def-clase ,nombre (,padre) () ,@clean-params)))
+                 nombres))))
 
 
 ;; =====================================================================
@@ -164,15 +176,16 @@
   ;; Cuantificadores
   (cuantificador-restriccion (comprobacion &optional elemento)
     nppq tqpq tdpq sbqp maximizar minimizar)
-  ;; LÃ³gicas â€” op-and y op-or son variÃ¡dicos (encadenan N args por reducciÃ³n)
-  (operacion-logica-binaria (:variadic izq der) op-and op-or)
-  (operacion-logica-unaria  (operando) op-not)
+  ;; LÃ³gicas â€” variÃ¡dicos; :self-named â†' constructor = nombre de la clase
+  (operacion-logica-binaria (:variadic izq der :self-named) op-and op-or)
+  (operacion-logica-unaria  (operando :self-named) op-not)
   ;; Relacionales
-  (comprobacion-aritmetica (izq der)
+  (comprobacion-aritmetica (izq der :self-named)
     op-igual op-distinto op-mayor op-menor op-mayor-igual op-menor-igual)
   ;; AritmÃ©ticas
-  (operacion-aritmetica (izq der)
+  (operacion-aritmetica (izq der :self-named)
     op-suma op-resta op-multiplicacion op-division))
+
 
 
 ;; =====================================================================
@@ -183,7 +196,7 @@
 ;; los slots de los mixins al construir el constructor de instancias.
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defvar *slots-de-entidad*    (make-hash-table))
-  ;; Mapa: nombre-entidad â†’ lista de sÃ­mbolos defvar de sus instancias concretas
+  ;; Mapa: nombre-entidad â†' lista de sÃ­mbolos defvar de sus instancias concretas
   ;; (en el orden en que fueron definidas con def-X)
   (defvar *instancias-de-entidad* (make-hash-table)))
 
@@ -192,7 +205,7 @@
 ;; def-clase genera automÃ¡ticamente el constructor y las funciones de acceso AST.
 ;;
 ;; (defclass* tiene-nombre () (nombre))
-;; â†’ (nombre ent) construye un nodo de acceso AST
+;; â†' (nombre ent) construye un nodo de acceso AST
 (defmacro defclass* (nombre padres slots)
   `(progn
      (eval-when (:compile-toplevel :load-toplevel :execute)
@@ -246,8 +259,8 @@
 
 ;; Define una consulta reutilizable (defun) o una consulta completa (defvar + consulta-simple).
 ;;
-;; Sin :itera-sobre â†’ funciÃ³n que recibe variables AST y devuelve un nodo condiciÃ³n.
-;; Con :itera-sobre â†’ defvar con nodo consulta-simple listo para evaluar.
+;; Sin :itera-sobre â†' funciÃ³n que recibe variables AST y devuelve un nodo condiciÃ³n.
+;; Con :itera-sobre â†' defvar con nodo consulta-simple listo para evaluar.
 ;;
 ;; :itera-sobre acepta mÃºltiples specs: (var dominio) (var dominio) ...
 ;; Se usa &rest + parsing manual porque &key solo acepta un valor por clave.
