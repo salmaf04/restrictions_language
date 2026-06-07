@@ -1,0 +1,1376 @@
+% =====================================================================
+% Tutorial: Generador de Horarios a partir de un AST en Common Lisp
+% =====================================================================
+% Compilar con: pdflatex tutorial.tex
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{parskip}
+
+\geometry{left=3cm, right=2.5cm, top=3cm, bottom=3cm}
+\setlength{\headheight}{14pt}
+
+% -- Colores para listings ------------------------------------------
+\definecolor{lisp-kw}{RGB}{0,0,160}
+\definecolor{lisp-cmt}{RGB}{100,100,100}
+\definecolor{lisp-str}{RGB}{160,0,0}
+\definecolor{py-kw}{RGB}{0,0,180}
+\definecolor{py-cmt}{RGB}{100,100,100}
+\definecolor{py-str}{RGB}{160,0,0}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{frame-color}{RGB}{200,200,200}
+
+% -- Estilo Common Lisp ---------------------------------------------
+\lstdefinelanguage{CommonLisp}{
+  morekeywords={defun,defvar,defmacro,defclass,let,let*,when,unless,
+                dolist,loop,if,cond,case,typecase,format,progn,
+                load,eval-when,setf,pushnew,mapcar,append,list,
+                defclass*,def-entidad,def-comb,def-consulta,
+                def-nppq,def-tqpq,def-tdpq,def-sbqp,
+                def-minimizar,def-maximizar,
+                def-op-and,def-op-or,def-op-not,
+                def-op-igual,def-op-distinto,
+                def-op-mayor,def-op-menor,
+                def-op-mayor-igual,def-op-menor-igual,
+                generar-python},
+  sensitive=false,
+  morecomment=[l]{;;},
+  morestring=[b]",
+}
+
+\lstdefinestyle{lisp}{
+  language=CommonLisp,
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{lisp-kw}\bfseries,
+  commentstyle=\color{lisp-cmt}\itshape,
+  stringstyle=\color{lisp-str},
+  frame=single,
+  rulecolor=\color{frame-color},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2,
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny\color{lisp-cmt},
+  numbersep=8pt,
+}
+
+\lstdefinestyle{python}{
+  language=Python,
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{py-kw}\bfseries,
+  commentstyle=\color{py-cmt}\itshape,
+  stringstyle=\color{py-str},
+  frame=single,
+  rulecolor=\color{frame-color},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny\color{py-cmt},
+  numbersep=8pt,
+}
+
+\lstdefinestyle{shell}{
+  backgroundcolor=\color{black},
+  basicstyle=\ttfamily\small\color{white},
+  frame=single,
+  rulecolor=\color{black},
+  breaklines=true,
+  numbers=none,
+}
+
+\lstdefinestyle{output}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\footnotesize,
+  frame=single,
+  rulecolor=\color{frame-color},
+  breaklines=true,
+  numbers=none,
+}
+
+% -- Encabezado -----------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Tutorial: Generador de Horarios}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!70!black,
+  urlcolor=blue!70!black,
+  citecolor=blue!70!black,
+}
+
+% -- Caracteres acentuados en listings (pdfLaTeX) -------------------
+\lstset{literate=
+  {á}{{\'{a}}}1 {é}{{\'{e}}}1 {í}{{\'{i}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1
+  {Á}{{\'{A}}}1 {É}{{\'{E}}}1 {Í}{{\'{I}}}1 {Ó}{{\'{O}}}1 {Ú}{{\'{U}}}1
+  {ñ}{{\~{n}}}1 {Ñ}{{\~{N}}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1
+}
+
+% -- Macros de conveniencia -----------------------------------------
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{\textit{#1}}}
+\newcommand{\kw}[1]{\textbf{\texttt{#1}}}
+
+% ======================================================================
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  \vspace*{3cm}
+  {\LARGE\bfseries Tutorial del Generador de Horarios\\[0.5em]
+   a partir de un \textit{Abstract Syntax Tree}\\
+   en Common Lisp\par}
+  \vspace{1.5cm}
+  {\large Guía completa para la definición de dominios,\\
+   modelado matemático y ejecución de la metaheurística\par}
+  \vspace{2cm}
+  \rule{\linewidth}{0.5pt}\\[0.5em]
+  {\normalsize
+    Este documento describe el uso del generador de código Python
+    desarrollado como parte de una tesis de grado.
+    Cubre desde la instalación del entorno hasta la interpretación
+    de los resultados, y puede emplearse para modelar cualquier tipo
+    de problema de asignación de horarios.\par}
+  \rule{\linewidth}{0.5pt}
+  \vfill
+  {\small \today}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ======================================================================
+\section{Introducción}
+% ======================================================================
+
+El presente tutorial describe el uso del \textbf{Generador de Horarios},
+una herramienta que permite definir un problema de asignación de horarios
+mediante un Árbol de Sintaxis Abstracta (AST) escrito en Common Lisp y
+genera automáticamente código Python con:
+
+\begin{enumerate}
+  \item Las funciones de evaluación de cada restricción del problema.
+  \item El modelo matemático formal del problema de optimización.
+  \item Un algoritmo genético que construye y optimiza el horario.
+\end{enumerate}
+
+La filosofía del sistema es \textbf{separar la descripción del problema
+de su resolución}: el usuario define qué entidades existen en su dominio,
+qué condiciones deben cumplirse y qué datos concretos hay; el generador
+produce el código ejecutable de forma automática.
+
+El sistema ha sido diseñado para ser \textbf{genérico}: aunque el ejemplo
+que acompaña este tutorial corresponde a la asignación de defensas de
+tesis, la misma herramienta puede emplearse para horarios de clases,
+turnos de personal, asignación de salas, calendarios deportivos u
+cualquier otro problema de naturaleza similar.
+
+% ======================================================================
+\section{Requisitos previos}
+\label{sec:requisitos}
+% ======================================================================
+
+\subsection{Software necesario}
+
+Para utilizar el generador se necesitan los siguientes programas:
+
+\begin{description}
+  \item[Steel Bank Common Lisp (SBCL)] Intérprete de Common Lisp.
+    Disponible en \url{https://www.sbcl.org/}.
+    Versión mínima recomendada: 2.0.
+
+  \item[Python 3.10 o superior] Para ejecutar el código generado.
+    Disponible en \url{https://www.python.org/}.
+    No se requieren paquetes externos; la implementación utiliza
+    únicamente la biblioteca estándar de Python.
+\end{description}
+
+\subsection{Instalación de SBCL}
+
+La instalación varía según el sistema operativo.
+
+\subsubsection*{Windows}
+
+\begin{enumerate}
+  \item Descargar el instalador desde \url{https://www.sbcl.org/platform-table.html}
+        (seleccionar \textit{Windows x64}).
+  \item Ejecutar el instalador y seguir los pasos predeterminados.
+        SBCL se instala típicamente en
+        \code{C:\textbackslash Program Files\textbackslash Steel Bank Common Lisp\textbackslash}.
+  \item Para ejecutar \code{sbcl} desde PowerShell sin indicar la ruta completa,
+        añadir el directorio de instalación al \code{PATH} del sistema
+        (ejecutar una sola vez y reiniciar la terminal):
+\end{enumerate}
+
+\begin{lstlisting}[style=shell]
+# PowerShell
+[Environment]::SetEnvironmentVariable(
+    "PATH",
+    $env:PATH + ";C:\Program Files\Steel Bank Common Lisp",
+    "User"
+)
+\end{lstlisting}
+
+\subsubsection*{macOS}
+
+En macOS la forma más sencilla es utilizar \textit{Homebrew}:
+
+\begin{lstlisting}[style=shell]
+# Terminal (bash / zsh)
+brew install sbcl
+\end{lstlisting}
+
+Alternativamente puede descargarse el binario precompilado desde
+\url{https://www.sbcl.org/platform-table.html} (seleccionar \textit{macOS}).
+Tras la descarga, descomprimir y ejecutar el script de instalación
+incluido:
+
+\begin{lstlisting}[style=shell]
+tar -xzf sbcl-<version>-x86-64-darwin-binary.tar.bz2
+cd sbcl-<version>-x86-64-darwin
+sudo sh install.sh
+\end{lstlisting}
+
+\subsubsection*{Linux}
+
+En distribuciones basadas en \textit{Debian/Ubuntu}:
+
+\begin{lstlisting}[style=shell]
+# bash
+sudo apt-get update
+sudo apt-get install sbcl
+\end{lstlisting}
+
+En distribuciones basadas en \textit{Fedora/RHEL/Rocky Linux}:
+
+\begin{lstlisting}[style=shell]
+sudo dnf install sbcl
+\end{lstlisting}
+
+En \textit{Arch Linux}:
+
+\begin{lstlisting}[style=shell]
+sudo pacman -S sbcl
+\end{lstlisting}
+
+En todos los casos, para verificar que la instalación fue exitosa:
+
+\begin{lstlisting}[style=shell]
+sbcl --version
+\end{lstlisting}
+
+\subsection{Instalación de Python}
+
+Python 3.10 o superior está disponible en \url{https://www.python.org/downloads/}.
+En macOS y Linux es frecuente que ya esté instalado; puede verificarse con:
+
+\begin{lstlisting}[style=shell]
+python3 --version
+\end{lstlisting}
+
+En Windows, Python puede instalarse desde \url{https://www.python.org/} o
+desde la Microsoft Store. Durante la instalación se recomienda marcar la
+opción \textit{Add Python to PATH} para poder invocarlo simplemente como
+\code{python} desde cualquier terminal.
+
+\subsection{Obtención del código}
+
+El código fuente se encuentra en el repositorio:
+\begin{center}
+  \url{https://github.com/salmaf04/restrictions_language}
+\end{center}
+Solo es necesaria la carpeta \file{generador-horarios/} del repositorio.
+Puede clonarse el repositorio completo y trabajar desde esa carpeta, o
+descargarse únicamente dicha carpeta. La estructura esperada del proyecto
+es la siguiente:
+
+\begin{verbatim}
+generador-horarios/
++-- lib/
+|   +-- clases-macros.lisp       <- infraestructura del AST (no modificar)
+|   +-- generador.lisp           <- punto de entrada del generador
+|   +-- gen-utils.lisp
+|   +-- gen-ast-python.lisp
+|   +-- gen-ast-math.lisp
+|   +-- gen-serializar.lisp
+|   +-- gen-consultas.lisp
+|   +-- gen-restricciones.lisp
+|   +-- gen-visualizacion.lisp
+|   \-- gen-metaheuristica.lisp
+\-- mi-dominio/
+    \-- dominio.lisp             <- archivo que el usuario crea
+\end{verbatim}
+
+Los archivos bajo \file{lib/} son la \textbf{biblioteca del generador} y
+no deben modificarse. El usuario únicamente necesita crear su propio
+archivo de dominio (véase la sección~\ref{sec:dominio}).
+
+% ======================================================================
+\section{Conceptos fundamentales}
+% ======================================================================
+
+\subsection{El Árbol de Sintaxis Abstracta (AST)}
+
+El AST es la representación interna del problema. Cuando el usuario
+escribe definiciones en Common Lisp usando las macros del sistema, estas
+construyen automáticamente objetos en memoria que forman un árbol. El
+generador recorre ese árbol y produce el código Python equivalente.
+
+El usuario \textbf{nunca manipula el árbol directamente}: trabaja con las
+macros de alto nivel descritas en este documento.
+
+\subsection{Tipos de cuantificadores de restricción}
+
+El sistema reconoce cuatro tipos de cuantificadores para expresar
+restricciones, más dos operadores de optimización:
+
+\begin{table}[ht]
+\centering
+\caption{Cuantificadores del sistema}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Macro} & \textbf{Nombre} & \textbf{Semántica} \\
+\midrule
+\code{def-nppq} & No Puede Pasar Que & Restricción dura.
+  La condición nunca puede ser verdadera. \\
+\code{def-tqpq} & Todo Que Pasa Que & Restricción dura.
+  Toda entidad que satisface la premisa debe satisfacer la conclusión. \\
+\code{def-tdpq} & Tampoco Debe Pasar Que & Restricción débil (blanda).
+  Equivalente semántico a \code{nppq} pero con menor peso. \\
+\code{def-sbqp} & Sería Bueno Que Pasara & Restricción débil (blanda).
+  Equivalente semántico a \code{tqpq} pero con menor peso. \\
+\code{def-minimizar} & Minimizar & Objetivo de optimización.
+  Minimiza el máximo valor de una consulta sobre un dominio. \\
+\code{def-maximizar} & Maximizar & Objetivo de optimización.
+  Maximiza el mínimo valor de una consulta sobre un dominio. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Las restricciones \textbf{duras} (\code{nppq}, \code{tqpq}) reciben un
+peso alto (por defecto 1000) en la función objetivo. Las
+\textbf{blandas} (\code{tdpq}, \code{sbqp}, \code{minimizar},
+\code{maximizar}) reciben un peso bajo (por defecto 1). La
+metaheurística minimiza la suma ponderada de violaciones.
+
+\subsection{Operadores lógicos disponibles}
+
+Para construir condiciones se dispone de los siguientes operadores:
+
+\begin{table}[ht]
+\centering
+\caption{Operadores lógicos y relacionales}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Macro} & \textbf{Significado} \\
+\midrule
+\code{def-op-and e1 e2 \ldots} & Conjunción ($e_1 \wedge e_2 \wedge \cdots$) \\
+\code{def-op-or  e1 e2 \ldots} & Disyunción ($e_1 \vee e_2 \vee \cdots$) \\
+\code{def-op-not e}            & Negación ($\neg e$) \\
+\code{def-op-igual a b}        & Igualdad ($a = b$) \\
+\code{def-op-distinto a b}     & Desigualdad ($a \neq b$) \\
+\code{def-op-mayor a b}        & Mayor estricto ($a > b$) \\
+\code{def-op-menor a b}        & Menor estricto ($a < b$) \\
+\code{def-op-mayor-igual a b}  & Mayor o igual ($a \geq b$) \\
+\code{def-op-menor-igual a b}  & Menor o igual ($a \leq b$) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ======================================================================
+\section{Definición del dominio}
+\label{sec:dominio}
+% ======================================================================
+
+Todo el dominio se describe en un único archivo Lisp que el usuario crea.
+Este archivo debe:
+
+\begin{enumerate}
+  \item Cargar la biblioteca del generador.
+  \item Definir los \textit{mixins} (atributos compartidos).
+  \item Definir las entidades del dominio.
+  \item Definir la entidad combinación (la ``fila'' del horario).
+  \item Definir las consultas (auxiliares y con iteración).
+  \item Definir las restricciones.
+  \item Definir los datos concretos del problema.
+  \item Llamar a \code{generar-python}.
+\end{enumerate}
+
+La estructura general del archivo es la siguiente:
+
+\begin{lstlisting}[style=lisp, caption={Estructura del archivo de dominio}]
+;; 1. Cargar la biblioteca
+(load (merge-pathnames "lib/clases-macros.lisp" (truename ".")))
+(load (merge-pathnames "lib/generador.lisp"     (truename ".")))
+
+;; 2. Mixins
+(defclass* tiene-nombre () (nombre))
+
+;; 3. Entidades
+(def-entidad recurso-a () (atributo1 atributo2))
+
+;; 4. Entidad combinación
+(def-comb asignacion (identidad variable1 variable2))
+
+;; 5. Consultas
+(def-consulta mi-consulta (arg1 arg2) ...)
+
+;; 6. Restricciones
+(defvar restriccion-1 (def-nppq ...))
+
+;; 7. Datos concretos
+(def-recurso-a inst-1 valor1 valor2)
+
+;; 8. Generar
+(generar-python "salida/horario.py"
+  :entidad-horario 'asignacion
+  ...)
+
+(sb-ext:exit)
+\end{lstlisting}
+
+Las subsecciones siguientes describen cada bloque en detalle.
+
+\subsection{Carga de la biblioteca}
+
+El archivo debe comenzar cargando los dos archivos de la biblioteca.
+La ruta es relativa al directorio desde el que se ejecutará SBCL,
+que debe ser la raíz del proyecto (\file{generador-horarios/}):
+
+\begin{lstlisting}[style=lisp, caption={Carga de la biblioteca}]
+(load (merge-pathnames "lib/clases-macros.lisp" (truename ".")))
+(load (merge-pathnames "lib/generador.lisp"     (truename ".")))
+\end{lstlisting}
+
+\subsection{Definición de \textit{mixins}}
+
+Un \textit{mixin} es un conjunto de atributos que pueden compartir varias
+entidades. Se define con la macro \code{defclass*}:
+
+\begin{lstlisting}[style=lisp, caption={Sintaxis de defclass*}]
+(defclass* nombre-mixin (padres...) (slot1 slot2 ...))
+\end{lstlisting}
+
+El ejemplo más común es un mixin con un atributo \code{nombre}:
+
+\begin{lstlisting}[style=lisp, caption={Ejemplo de mixin}]
+(defclass* tiene-nombre () (nombre))
+\end{lstlisting}
+
+Tras esta definición, cualquier entidad que herede de \code{tiene-nombre}
+dispondrá automáticamente del atributo \code{nombre} y de la función de
+acceso \code{(nombre entidad)}.
+
+\subsection{Definición de entidades}
+\label{sec:entidades}
+
+Una entidad representa un tipo de objeto del dominio. Se define con
+\code{def-entidad}:
+
+\begin{lstlisting}[style=lisp, caption={Sintaxis de def-entidad}]
+(def-entidad nombre-entidad (padres-mixin...) (slot1 slot2 ...))
+\end{lstlisting}
+
+\begin{description}
+  \item[\code{nombre-entidad}] Nombre del tipo de entidad (símbolo Lisp).
+  \item[\code{(padres-mixin...)}] Lista de \textit{mixins} de los que
+    hereda. Puede estar vacía: \code{()}.
+  \item[\code{(slot1 slot2 ...)}] Atributos propios de esta entidad.
+    También puede estar vacía si la entidad solo tiene atributos heredados.
+\end{description}
+
+\textbf{Ejemplo}: definir un tipo \code{profesor} que tiene nombre
+(heredado del mixin) y grado académico (propio):
+
+\begin{lstlisting}[style=lisp, caption={Definición de la entidad profesor}]
+(def-entidad profesor (tiene-nombre) (grado))
+\end{lstlisting}
+
+Internamente, \code{def-entidad} genera:
+\begin{itemize}
+  \item Una clase CLOS para las instancias concretas.
+  \item Una clase CLOS para la referencia genérica (usada en restricciones).
+  \item Una macro \code{def-profesor} para crear instancias.
+  \item Funciones de acceso AST: \code{(nombre prof)}, \code{(grado prof)}.
+\end{itemize}
+
+\subsubsection{Entidades enumeradas}
+
+Una \textbf{entidad enumerada} es aquella cuyas instancias son fijas y
+conocidas de antemano (como grados académicos, días de la semana o
+estados). Se define igual que cualquier entidad, pero generalmente con
+un único atributo identificador:
+
+\begin{lstlisting}[style=lisp, caption={Entidad enumerada: grado académico}]
+(def-entidad grado () (id))
+
+(def-grado grado-lic "Lic")
+(def-grado grado-msc "Msc")
+(def-grado grado-dr  "Dr")
+\end{lstlisting}
+
+\subsection{Definición de la entidad combinación}
+\label{sec:comb}
+
+La entidad combinación representa una \textbf{fila del horario}: qué
+identidad (p.ej., un tribunal, un grupo, un empleado) es asignada a qué
+recursos (p.ej., fecha, hora, aula). Se define con \code{def-comb}:
+
+\begin{lstlisting}[style=lisp, caption={Sintaxis de def-comb}]
+(def-comb nombre-combinacion (slot-identidad variable1 variable2 ...))
+\end{lstlisting}
+
+\begin{description}
+  \item[\code{slot-identidad}] El atributo que identifica de forma única
+    \textit{qué} se está asignando. Hay exactamente una instancia de la
+    combinación por cada valor de este atributo.
+  \item[\code{variable1, variable2, ...}] Los atributos que el algoritmo
+    genético decide: cuándo, dónde, en qué condiciones se realiza la
+    asignación.
+\end{description}
+
+\textbf{Ejemplo} para un horario de defensas de tesis:
+
+\begin{lstlisting}[style=lisp, caption={Entidad combinación para defensas de tesis}]
+(def-comb asignacion (tribunal fecha momento local))
+\end{lstlisting}
+
+Aquí, \code{tribunal} es la identidad (hay una defensa por tribunal) y
+\code{fecha}, \code{momento}, \code{local} son las variables de decisión
+que el algoritmo optimizará.
+
+\subsection{Definición de consultas}
+\label{sec:consultas}
+
+Las consultas son expresiones con nombre y parámetros que pueden
+reutilizarse dentro de restricciones o de otras consultas.
+Se definen con \code{def-consulta} en dos variantes: con o sin
+iteración sobre las instancias del horario.
+
+\subsubsection{Consulta sin iteración}
+
+Una consulta sin iteración recibe argumentos explícitos y devuelve
+una expresión del AST construida con los operadores disponibles.
+Es útil para encapsular condiciones o sub-expresiones que se repiten
+en varias restricciones, aunque su uso es opcional: una restricción
+puede construir directamente su expresión sin necesidad de una consulta
+auxiliar.
+
+\begin{lstlisting}[style=lisp, caption={Sintaxis de consulta sin iteración}]
+(def-consulta nombre-consulta (arg1 arg2 ...)
+  :comprueba
+  <expresion-del-AST>)
+\end{lstlisting}
+
+\textbf{Ejemplo}: expresión que verifica si un profesor pertenece al
+tribunal de una asignación dada:
+
+\begin{lstlisting}[style=lisp, caption={Consulta auxiliar: profesor en tribunal}]
+(def-consulta profesor-en-tribunal (prof asig)
+  :comprueba
+  (def-op-or
+    (def-op-igual (tutor      (tribunal asig)) prof)
+    (def-op-igual (oponente   (tribunal asig)) prof)
+    (def-op-igual (presidente (tribunal asig)) prof)
+    (def-op-igual (vocal      (tribunal asig)) prof)
+    (def-op-igual (secretario (tribunal asig)) prof)))
+\end{lstlisting}
+
+El acceso encadenado \code{(tutor (tribunal asig))} navega los atributos
+del AST: primero obtiene el \code{tribunal} de la asignación \code{asig}
+y luego su atributo \code{tutor}. El generador produce el código de
+acceso equivalente en Python de forma automática.
+
+Esta consulta puede usarse como subexpresión dentro de otras consultas
+o restricciones.
+
+\subsubsection{Consulta con iteración}
+
+Una consulta con iteración recorre uno o varios dominios de entidades,
+filtra con una condición y acumula un resultado numérico. Es el
+mecanismo principal para calcular métricas sobre el horario completo:
+conteos, sumas, o cualquier agregado expresable con las operaciones
+disponibles.
+
+\begin{lstlisting}[style=lisp, caption={Sintaxis de consulta con iteración}]
+(def-consulta nombre-consulta (args-extra...)
+  :itera-sobre (var1 entidad1) (var2 entidad2) ...
+  :comprueba   <condicion-booleana>
+  :operacion   <tipo-de-acumulacion>
+  :devuelve    nombre-resultado)
+\end{lstlisting}
+
+\begin{description}
+  \item[\code{:itera-sobre}] Define los bucles anidados. Cada par
+    \code{(variable entidad)} recorre todas las instancias de ese tipo
+    definidas en el dominio.
+  \item[\code{:comprueba}] Condición booleana que determina qué
+    combinaciones de variables se acumulan en el resultado.
+  \item[\code{:operacion}] Tipo de acumulación:
+    \begin{itemize}
+      \item \code{suma} o \code{contar}: cuenta cuántas veces se cumple
+            la condición.
+      \item \code{contar-distintos-dias}: cuenta cuántos valores distintos
+            del atributo \code{fecha} aparecen entre los elementos que
+            cumplen la condición.
+    \end{itemize}
+  \item[\code{:devuelve}] Nombre descriptivo del resultado (informativo,
+    no afecta al código generado).
+\end{description}
+
+\textbf{Ejemplo}: contar cuántas combinaciones de profesor y par de
+asignaciones presentan conflicto de horario:
+
+\begin{lstlisting}[style=lisp, caption={Consulta con iteración: conflictos de horario}]
+(def-consulta conflictos-de-horario ()
+  :itera-sobre (p profesor) (a1 asignacion) (a2 asignacion)
+  :comprueba
+  (def-op-and
+    (profesor-en-tribunal p a1)
+    (profesor-en-tribunal p a2)
+    (def-op-igual    (fecha    a1) (fecha    a2))
+    (def-op-igual    (momento  a1) (momento  a2))
+    (def-op-distinto (tribunal a1) (tribunal a2)))
+  :operacion suma
+  :devuelve  n-conflictos)
+\end{lstlisting}
+
+\textbf{Ejemplo}: contar cuántos días distintos asiste un profesor
+concreto a lo largo del horario:
+
+\begin{lstlisting}[style=lisp, caption={Consulta: días distintos de asistencia}]
+(def-consulta dias-asistidos (prof)
+  :itera-sobre (asig asignacion)
+  :comprueba   (profesor-en-tribunal prof asig)
+  :operacion   contar-distintos-dias
+  :devuelve    n-dias)
+\end{lstlisting}
+
+Las consultas con iteración son las que deben listarse en el parámetro
+\code{:consultas} de \code{generar-python}. Las consultas sin iteración
+se referencian automáticamente desde las que las utilizan y no necesitan
+declararse explícitamente en esa lista.
+
+\subsection{Definición de restricciones}
+\label{sec:restricciones}
+
+Las restricciones expresan condiciones sobre el horario y se almacenan
+en variables globales con \code{defvar}. Cada restricción envuelve una
+expresión del AST, que puede ser una llamada a una consulta, una
+combinación de operadores lógicos o cualquier otra construcción válida.
+El generador traduce cada restricción a una función Python que devuelve
+un valor numérico: cuanto mayor sea ese valor, mayor es el
+incumplimiento.
+
+\subsubsection{Restricción nppq (No Puede Pasar Que)}
+
+Expresa que la expresión dada \textbf{no debe ocurrir o debe valer
+cero}. El generador produce una función cuyo resultado se multiplica
+por el peso de la restricción en la función objetivo; un valor de cero
+indica cumplimiento total.
+
+\begin{lstlisting}[style=lisp, caption={Sintaxis de restricción nppq}]
+(defvar nombre-restriccion
+  (def-nppq <expresion-del-AST>))
+\end{lstlisting}
+
+\textbf{Ejemplo}: prohibir cualquier conflicto de horario entre
+profesores:
+
+\begin{lstlisting}[style=lisp, caption={Restricción nppq: sin conflictos de horario}]
+(defvar restriccion-sin-conflictos-de-horario
+  (def-nppq (def-op-mayor conflictos-de-horario 0)))
+\end{lstlisting}
+
+\subsubsection{Restricción tqpq (Todo Que Pasa Que)}
+
+Expresa que la expresión dada \textbf{debe cumplirse}. La función
+generada devuelve un valor positivo proporcional al grado de
+incumplimiento, y cero cuando la condición se satisface plenamente.
+
+\begin{lstlisting}[style=lisp, caption={Sintaxis de restricción tqpq}]
+(defvar nombre-restriccion
+  (def-tqpq <expresion-del-AST>))
+\end{lstlisting}
+
+\subsubsection{Restricción débil: minimizar}
+
+Expresa un objetivo de optimización: minimizar el valor máximo de una
+consulta evaluada sobre cada instancia de un dominio de entidades.
+Es útil para equilibrar cargas o recursos entre los distintos elementos
+del problema.
+
+\begin{lstlisting}[style=lisp, caption={Restricción débil: minimizar carga máxima}]
+(defvar restriccion-minimizar-carga-maxima
+  (def-minimizar dias-asistidos profesor))
+\end{lstlisting}
+
+El primer argumento es la consulta a evaluar y el segundo es el tipo
+de entidad sobre el que se itera para calcular el máximo.
+
+\subsubsection{Restricciones blandas: tdpq y sbqp}
+
+\code{def-tdpq} (Tampoco Debe Pasar Que) es la versión blanda de
+\code{nppq}: expresa algo que preferiblemente no debe ocurrir, pero
+cuya violación tiene un coste menor en la función objetivo.
+
+\code{def-sbqp} (Sería Bueno Que Pasara) es la versión blanda de
+\code{tqpq}: expresa algo que sería deseable que se cumpliera, sin
+que su incumplimiento sea crítico.
+
+Ambas tienen la misma sintaxis que sus equivalentes duros y aceptan
+el mismo tipo de expresiones del AST:
+
+\begin{lstlisting}[style=lisp, caption={Restricciones blandas}]
+(defvar restriccion-blanda-1
+  (def-tdpq <expresion-que-se-prefiere-no-ocurra>))
+
+(defvar restriccion-blanda-2
+  (def-sbqp <expresion-deseable>))
+\end{lstlisting}
+
+\subsection{Definición de datos concretos}
+\label{sec:datos}
+
+Una vez definidas las entidades, se crean las instancias concretas del
+problema usando las macros generadas automáticamente por \code{def-entidad}.
+La macro tiene la forma \code{def-<nombre-entidad>}:
+
+\begin{lstlisting}[style=lisp, caption={Sintaxis general para instanciar entidades}]
+(def-<nombre-entidad> nombre-instancia valor1 valor2 ...)
+\end{lstlisting}
+
+Los valores se asignan en orden: primero los atributos heredados de los
+\textit{mixins} (en el orden en que se declararon los mixins), y luego
+los atributos propios.
+
+\textbf{Ejemplo completo de datos para el horario de tesis}:
+
+\begin{lstlisting}[style=lisp, caption={Datos concretos del dominio de tesis}]
+;; Grados (enumeración)
+(def-grado grado-lic "Lic")
+(def-grado grado-msc "Msc")
+(def-grado grado-dr  "Dr")
+
+;; Profesores: (nombre grado)
+;; Orden: slot heredado 'nombre' primero, luego slot propio 'grado'
+(def-profesor prof-piad   "Alejandro Piad"  grado-dr)
+(def-profesor prof-suarez "Carlos Suarez"   grado-msc)
+(def-profesor prof-garcia "Maria Garcia"    grado-dr)
+
+;; Estudiantes: (nombre)
+(def-estudiante est-rodriguez "Laura Rodriguez")
+(def-estudiante est-fernandez "Carlos Fernandez")
+
+;; Tribunales: (estudiante tutor oponente presidente vocal secretario)
+(def-tribunal trib-1
+  est-rodriguez prof-piad prof-suarez prof-garcia prof-piad prof-suarez)
+
+;; Fechas disponibles: (dia mes)
+(def-fecha fecha-1 1 6)
+(def-fecha fecha-2 2 6)
+(def-fecha fecha-3 3 6)
+
+;; Momentos disponibles: (hora)
+(def-momento momento-manana   9)
+(def-momento momento-mediodia 11)
+(def-momento momento-tarde    14)
+
+;; Locales disponibles: (nombre)
+(def-local local-a "Sala A")
+(def-local local-b "Sala B")
+\end{lstlisting}
+
+\textbf{Importante}: el orden de los argumentos en \code{def-<entidad>}
+debe coincidir exactamente con el orden en que se declararon los slots
+en la definición de la entidad (primero los heredados, luego los propios).
+
+Todas las instancias se registran automáticamente en un repositorio
+interno. El generador las lee para construir las constantes del módulo
+Python y poblar los pools del algoritmo genético.
+
+% ======================================================================
+\section{Llamada al generador}
+\label{sec:llamada}
+% ======================================================================
+
+Una vez definido el dominio completo, se llama a la función
+\code{generar-python} para producir el archivo Python:
+
+\begin{lstlisting}[style=lisp, caption={Llamada completa a generar-python}]
+(generar-python "mi-dominio/horario.py"
+  ;; Entidad combinación (la fila del horario)
+  :entidad-horario   'asignacion
+
+  ;; Slot que identifica cada fila (hay exactamente una por valor)
+  :slot-identidad    'tribunal
+
+  ;; Slots que el algoritmo genético optimizará
+  :slots-variables   '(fecha momento local)
+
+  ;; Consultas con :itera-sobre (defvar, no defun)
+  :consultas         '(conflictos-de-horario dias-asistidos)
+
+  ;; Restricciones duras (nppq / tqpq)
+  :restricciones-duras   '(restriccion-sin-conflictos-de-horario)
+
+  ;; Restricciones blandas (tdpq / sbqp / minimizar / maximizar)
+  :restricciones-blandas '(restriccion-minimizar-carga-maxima)
+
+  ;; Pesos del modelo matemático (opcionales, defaults: 1000 y 1)
+  :peso-dura   1000
+  :peso-blanda    1)
+\end{lstlisting}
+
+\subsection{Descripción de cada parámetro}
+
+\begin{description}
+  \item[\code{:entidad-horario}] Símbolo de la entidad combinación definida
+    con \code{def-comb}. El horario es una lista de instancias de este tipo.
+
+  \item[\code{:slot-identidad}] Nombre del atributo de la combinación que
+    actúa como clave: hay exactamente una asignación por cada valor distinto
+    de este slot. El algoritmo genético \textit{no modifica} este slot.
+
+  \item[\code{:slots-variables}] Lista de atributos que el algoritmo
+    genético puede cambiar. Cada uno se elige aleatoriamente de entre las
+    instancias del tipo correspondiente que hayan sido definidas con
+    \code{def-<entidad>}.
+
+  \item[\code{:consultas}] Lista de las variables globales que almacenan
+    nodos \code{consulta-simple} con \code{:itera-sobre}. Estas son las
+    que se convierten en funciones Python. Las consultas auxiliares (sin
+    \code{:itera-sobre}, definidas como \code{defun}) se referencian
+    automáticamente desde las que sí iteran.
+
+  \item[\code{:restricciones-duras}] Lista de variables globales con
+    cuantificadores \code{nppq} o \code{tqpq}. Su violación tiene un
+    coste alto en la función objetivo (\code{:peso-dura}).
+
+  \item[\code{:restricciones-blandas}] Lista de variables globales con
+    cuantificadores \code{tdpq}, \code{sbqp}, \code{minimizar} o
+    \code{maximizar}. Su violación tiene un coste bajo (\code{:peso-blanda}).
+
+  \item[\code{:peso-dura}] Peso numérico para las restricciones duras.
+    Por defecto: 1000.
+
+  \item[\code{:peso-blanda}] Peso numérico para las restricciones blandas.
+    Por defecto: 1.
+\end{description}
+
+\subsection{Finalización del script}
+
+Al final del archivo de dominio, se añade \code{(sb-ext:exit)} para que
+SBCL termine limpiamente tras generar el archivo:
+
+\begin{lstlisting}[style=lisp]
+(sb-ext:exit)
+\end{lstlisting}
+
+% ======================================================================
+\section{Ejecución}
+\label{sec:ejecucion}
+% ======================================================================
+
+\subsection{Paso 1: generar el archivo Python}
+
+Situarse en la raíz del proyecto (\file{generador-horarios/}) y ejecutar
+SBCL con el archivo de dominio. Los comandos varían según el sistema
+operativo.
+
+\subsubsection*{Windows (PowerShell)}
+
+Si SBCL fue añadido al \code{PATH} (véase sección~\ref{sec:requisitos}):
+
+\begin{lstlisting}[style=shell]
+cd "C:\ruta\al\generador-horarios"
+sbcl --script mi-dominio/dominio.lisp
+\end{lstlisting}
+
+Si no fue añadido al \code{PATH}, usar la ruta completa:
+
+\begin{lstlisting}[style=shell]
+cd "C:\ruta\al\generador-horarios"
+& "C:\Program Files\Steel Bank Common Lisp\sbcl.exe" --script mi-dominio/dominio.lisp
+\end{lstlisting}
+
+\subsubsection*{macOS y Linux (Terminal)}
+
+\begin{lstlisting}[style=shell]
+cd /ruta/al/generador-horarios
+sbcl --script mi-dominio/dominio.lisp
+\end{lstlisting}
+
+En todos los casos, un mensaje de confirmación indicará la ruta del
+archivo generado:
+
+\begin{lstlisting}[style=output]
+Python generado en: mi-dominio/horario.py
+\end{lstlisting}
+
+\subsection{Paso 2: ejecutar el algoritmo genético}
+
+\subsubsection*{Windows (PowerShell)}
+
+\begin{lstlisting}[style=shell]
+python mi-dominio/horario.py
+\end{lstlisting}
+
+Si \code{python} no está en el \code{PATH}:
+
+\begin{lstlisting}[style=shell]
+& "C:\Users\<usuario>\AppData\Local\Programs\Python\Python313\python.exe" `
+    mi-dominio/horario.py
+\end{lstlisting}
+
+\subsubsection*{macOS y Linux (Terminal)}
+
+\begin{lstlisting}[style=shell]
+python3 mi-dominio/horario.py
+\end{lstlisting}
+
+% ======================================================================
+\section{Interpretación de la salida}
+\label{sec:salida}
+% ======================================================================
+
+\subsection{Modelo de optimización}
+
+La primera sección impresa corresponde al modelo matemático abstracto:
+
+\begin{lstlisting}[style=output]
+============================================================
+MODELO DE OPTIMIZACION
+============================================================
+
+INDICES Y CONJUNTOS:
+  T  =  conjunto de tribunals      (|T| = 3)
+  F  =  conjunto de fecha disponibles   (|F| = 3)
+  M  =  conjunto de momento disponibles (|M| = 3)
+  L  =  conjunto de local disponibles   (|L| = 2)
+  P  =  conjunto de profesor            (|P| = 6)
+
+VARIABLES DE DECISION:
+  Para cada tribunal t en T se asigna:
+    fecha_t   in F   (fecha)
+    momento_t in M   (momento)
+    local_t   in L   (local)
+
+FUNCION OBJETIVO:
+  minimizar z(h) donde:
+    z(h) = 1000 * sum_i incumpl_i(h)   [duras]
+         +    1 * sum_j incumpl_j(h)   [blandas]
+
+RESTRICCIONES DURAS  (nppq / tqpq):
+  R1  [SIMPLE / DURA  (nppq) -- No Puede Pasar Que]:
+    conflictos_de_horario(h) = 0
+    donde:
+      conflictos_de_horario(h) = Sum_{p in P, a1 in A, a2 in A}
+        [prof_en_tribunal(p,a1) /\ prof_en_tribunal(p,a2)
+         /\ fecha(a1)=fecha(a2) /\ momento(a1)=momento(a2)
+         /\ tribunal(a1) != tribunal(a2)]
+
+RESTRICCIONES BLANDAS  (minimizar):
+  R2  [Minimizar]:
+    minimizar max_{x in P}  dias_asistidos(h, x)
+\end{lstlisting}
+
+\subsubsection{Lectura del modelo}
+
+\begin{description}
+  \item[Índices y conjuntos] Muestra los tipos de entidades involucrados
+    y cuántas instancias concretas hay de cada uno en el problema.
+
+  \item[Variables de decisión] Indica qué atributos se están decidiendo
+    para cada valor del slot identidad. La notación $v_t$ significa
+    ``el valor del atributo $v$ asignado al tribunal $t$''.
+
+  \item[Función objetivo] Fórmula de minimización con los pesos configurados.
+
+  \item[Restricciones] Para cada restricción se muestra su tipo,
+    la expresión matemática que debe satisfacerse y, cuando aplica,
+    la definición formal de las consultas que intervienen.
+\end{description}
+
+\subsection{Progreso del algoritmo genético}
+
+Durante la ejecución se imprime el progreso cada 50 generaciones:
+
+\begin{lstlisting}[style=output]
+Generacion    0: costo inicial = 3000
+Generacion   50: mejor costo   = 1000
+Generacion  100: mejor costo   = 1
+Generacion  150: mejor costo   = 1
+...
+\end{lstlisting}
+
+Un costo de 0 indica que todas las restricciones duras se cumplen
+perfectamente y los objetivos de optimización han alcanzado su mínimo.
+Si el algoritmo encuentra una solución perfecta antes de agotar las
+generaciones, lo indica explícitamente.
+
+\subsection{Horario propuesto y evaluación}
+
+Al finalizar, se imprime el horario concreto elegido por la metaheurística
+y la evaluación de cada restricción:
+
+\begin{lstlisting}[style=output]
+============================================================
+HORARIO PROPUESTO POR LA METAHEURISTICA
+============================================================
+
+  Defensa 1:
+    TRIBUNAL : (estudiante=Laura Rodriguez, tutor=Alejandro Piad, ...)
+    FECHA    : (dia=2, mes=6)
+    MOMENTO  : 11
+    LOCAL    : Sala A
+
+  Defensa 2:
+    TRIBUNAL : (estudiante=Carlos Fernandez, tutor=Maria Garcia, ...)
+    FECHA    : (dia=2, mes=6)
+    MOMENTO  : 14
+    LOCAL    : Sala B
+
+============================================================
+EVALUACION DE RESTRICCIONES
+============================================================
+Restricciones simples / duras  (peso 1000):
+  restriccion_sin_conflictos_de_horario: 0 incumplimientos  ->  costo: 0
+Restricciones debiles / blandas  (peso 1):
+  restriccion_minimizar_carga_maxima: 1  ->  costo: 1
+Costo total: 1
+============================================================
+\end{lstlisting}
+
+\textbf{Interpretación}:
+\begin{itemize}
+  \item \textit{0 incumplimientos} en la restricción dura significa que
+    ningún profesor debe asistir a dos defensas simultáneas.
+  \item El valor 1 en la restricción blanda indica que algún profesor
+    asiste al menos un día; dado el tamaño del problema esto es inevitable.
+  \item El costo total de 1 (solo blandas) es la mejor solución posible
+    para este conjunto de datos.
+\end{itemize}
+
+% ======================================================================
+\section{Ejemplo completo: horario de defensas de tesis}
+\label{sec:ejemplo}
+% ======================================================================
+
+Esta sección presenta el archivo de dominio completo utilizado como caso
+de prueba del sistema.
+
+\begin{lstlisting}[style=lisp, caption={Archivo completo: tesis/dominio.lisp}]
+;; =====================================================================
+;; DOMINIO: HORARIO DE DEFENSAS DE TESIS
+;; =====================================================================
+;; Ejecutar desde la carpeta generador-horarios/:
+;;   sbcl --script tesis/dominio.lisp
+;; =====================================================================
+
+;; Cargar infraestructura
+(load (merge-pathnames "lib/clases-macros.lisp" (truename ".")))
+(load (merge-pathnames "lib/generador.lisp"     (truename ".")))
+
+
+;; -- Mixins --------------------------------------------------------
+(defclass* tiene-nombre () (nombre))
+
+
+;; -- Entidades -----------------------------------------------------
+(def-entidad grado     ()           (id))
+(def-entidad profesor  (tiene-nombre) (grado))
+(def-entidad estudiante (tiene-nombre))
+(def-entidad tribunal  ()
+  (estudiante tutor oponente presidente vocal secretario))
+(def-entidad fecha     () (dia mes))
+(def-entidad momento   () (hora))
+(def-entidad local     (tiene-nombre))
+
+
+;; -- Entidad combinación -------------------------------------------
+(def-comb asignacion (tribunal fecha momento local))
+
+
+;; -- Consultas -----------------------------------------------------
+
+;; Auxiliar: profesor pertenece al tribunal de la asignacion
+(def-consulta profesor-en-tribunal (prof asig)
+  :comprueba
+  (def-op-or
+    (def-op-igual (tutor      (tribunal asig)) prof)
+    (def-op-igual (oponente   (tribunal asig)) prof)
+    (def-op-igual (presidente (tribunal asig)) prof)
+    (def-op-igual (vocal      (tribunal asig)) prof)
+    (def-op-igual (secretario (tribunal asig)) prof)))
+
+;; Cuenta pares de defensas con conflicto de horario
+(def-consulta conflictos-de-horario ()
+  :itera-sobre (p profesor) (a1 asignacion) (a2 asignacion)
+  :comprueba
+  (def-op-and
+    (profesor-en-tribunal p a1)
+    (profesor-en-tribunal p a2)
+    (def-op-igual    (fecha    a1) (fecha    a2))
+    (def-op-igual    (momento  a1) (momento  a2))
+    (def-op-distinto (tribunal a1) (tribunal a2)))
+  :operacion suma
+  :devuelve  n-conflictos)
+
+;; Cuenta dias distintos que asiste un profesor
+(def-consulta dias-asistidos (prof)
+  :itera-sobre (asig asignacion)
+  :comprueba   (profesor-en-tribunal prof asig)
+  :operacion   contar-distintos-dias
+  :devuelve    n-dias)
+
+
+;; -- Restricciones -------------------------------------------------
+
+;; DURA: ningun profesor en dos defensas al mismo tiempo
+(defvar restriccion-sin-conflictos-de-horario
+  (def-nppq (def-op-mayor conflictos-de-horario 0)))
+
+;; BLANDA: minimizar la carga del profesor que mas dias asiste
+(defvar restriccion-minimizar-carga-maxima
+  (def-minimizar dias-asistidos profesor))
+
+
+;; -- Datos concretos -----------------------------------------------
+
+(def-grado grado-lic "Lic")
+(def-grado grado-msc "Msc")
+(def-grado grado-dr  "Dr")
+
+(def-profesor prof-piad    "Alejandro Piad"  grado-dr)
+(def-profesor prof-suarez  "Carlos Suarez"   grado-msc)
+(def-profesor prof-garcia  "Maria Garcia"    grado-dr)
+(def-profesor prof-torres  "Luis Torres"     grado-msc)
+(def-profesor prof-mendez  "Ana Mendez"      grado-dr)
+(def-profesor prof-herrera "Pedro Herrera"   grado-msc)
+
+(def-estudiante est-rodriguez "Laura Rodriguez")
+(def-estudiante est-fernandez "Carlos Fernandez")
+(def-estudiante est-lopez     "Sofia Lopez")
+
+(def-tribunal trib-1
+  est-rodriguez prof-piad   prof-suarez  prof-garcia  prof-torres  prof-mendez)
+(def-tribunal trib-2
+  est-fernandez prof-garcia prof-herrera prof-piad    prof-suarez  prof-torres)
+(def-tribunal trib-3
+  est-lopez     prof-mendez prof-torres  prof-suarez  prof-herrera prof-garcia)
+
+(def-fecha fecha-1 1 6)
+(def-fecha fecha-2 2 6)
+(def-fecha fecha-3 3 6)
+
+(def-momento momento-manana   9)
+(def-momento momento-mediodia 11)
+(def-momento momento-tarde    14)
+
+(def-local local-a "Sala A")
+(def-local local-b "Sala B")
+
+
+;; -- Generar -------------------------------------------------------
+(generar-python "tesis/horario.py"
+  :entidad-horario   'asignacion
+  :slot-identidad    'tribunal
+  :slots-variables   '(fecha momento local)
+  :consultas         '(conflictos-de-horario dias-asistidos)
+  :restricciones-duras   '(restriccion-sin-conflictos-de-horario)
+  :restricciones-blandas '(restriccion-minimizar-carga-maxima)
+  :peso-dura   1000
+  :peso-blanda    1)
+
+(sb-ext:exit)
+\end{lstlisting}
+
+% ======================================================================
+\section{Generalización a otros tipos de horarios}
+\label{sec:generalizacion}
+% ======================================================================
+
+El sistema no está ligado al dominio de defensas de tesis. Puede usarse
+para cualquier problema donde se deba asignar recursos a identidades
+minimizando conflictos. La siguiente tabla muestra algunos ejemplos:
+
+\begin{table}[ht]
+\centering
+\caption{Ejemplos de aplicación del generador}
+\begin{tabular}{@{}p{3cm}p{3.5cm}p{4cm}p{3cm}@{}}
+\toprule
+\textbf{Problema} & \textbf{Identidad} & \textbf{Variables} & \textbf{Restricciones típicas} \\
+\midrule
+Horario de clases & grupo de alumnos & día, hora, aula, profesor
+  & Sin solapamiento de profesores; aula con capacidad suficiente \\
+Turnos de personal & empleado & día, turno, puesto
+  & Horas máximas semanales; descanso mínimo entre turnos \\
+Calendarios deportivos & partido & jornada, hora, estadio
+  & Equipos sin dos partidos en un mismo día; uso alternado del estadio \\
+Asignación de aulas & evento & fecha, hora, sala
+  & Sin colisión de salas; compatibilidad de capacidad \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Para adaptar el generador a un nuevo dominio, el proceso es siempre el mismo:
+
+\begin{enumerate}
+  \item \textbf{Identificar la entidad combinación}: qué es lo que se está
+    asignando (el elemento principal del horario) y qué atributos tiene.
+  \item \textbf{Separar identidad de variables}: determinar cuál atributo
+    identifica unívocamente cada elemento (identidad) y cuáles son los
+    que se asignan (variables).
+  \item \textbf{Definir las restricciones}: expresar en términos de
+    consultas cuándo se produce un conflicto o una situación indeseable.
+  \item \textbf{Categorizar las restricciones}: decidir cuáles son duras
+    (nunca pueden violarse) y cuáles son blandas (se prefiere no violarlas
+    pero no es crítico).
+  \item \textbf{Proporcionar los datos}: definir las instancias concretas
+    de cada tipo de entidad.
+  \item \textbf{Ejecutar el generador} y analizar los resultados.
+\end{enumerate}
+
+\subsection{Lista de verificación antes de ejecutar}
+
+Antes de llamar a \code{generar-python}, conviene verificar lo siguiente:
+
+\begin{itemize}[label=$\square$]
+  \item La entidad combinación está definida con \code{def-comb} y
+    contiene exactamente un slot de identidad más los slots variables.
+  \item Cada slot variable tiene al menos dos instancias concretas
+    definidas (de lo contrario el algoritmo no puede variar).
+  \item Cada consulta pasada en \code{:consultas} fue definida con
+    \code{:itera-sobre} (es un \code{defvar}, no un \code{defun}).
+  \item Las restricciones pasadas en \code{:restricciones-duras} y
+    \code{:restricciones-blandas} son variables globales (definidas
+    con \code{defvar}).
+  \item El directorio destino del archivo Python existe.
+  \item SBCL se ejecuta desde la raíz del proyecto
+    (\file{generador-horarios/}).
+\end{itemize}
+
+% ======================================================================
+\section{Referencia rápida de macros}
+\label{sec:referencia}
+% ======================================================================
+
+\begin{table}[ht]
+\centering
+\caption{Macros principales del sistema}
+\begin{tabular}{@{}p{5cm}p{8cm}@{}}
+\toprule
+\textbf{Macro / Función} & \textbf{Uso} \\
+\midrule
+\code{defclass* N () (s1 s2)} & Define mixin con atributos \code{s1}, \code{s2} \\
+\code{def-entidad N (mix) (s)} & Define entidad heredando mixins, con slot \code{s} \\
+\code{def-comb N (id v1 v2)} & Define entidad combinación \\
+\code{def-N inst v1 v2} & Crea instancia de entidad N \\
+\code{def-consulta N (a) :comprueba e} & Consulta auxiliar (retorna expresión AST) \\
+\code{def-consulta N () :itera-sobre ...} & Consulta con iteración (devuelve contador) \\
+\code{def-nppq cond} & Restricción dura: condición nunca verdadera \\
+\code{def-tqpq cond} & Restricción dura: condición siempre verdadera \\
+\code{def-tdpq cond} & Restricción blanda (como nppq) \\
+\code{def-sbqp cond} & Restricción blanda (como tqpq) \\
+\code{def-minimizar consulta dominio} & Objetivo: minimizar máximo de consulta \\
+\code{def-maximizar consulta dominio} & Objetivo: maximizar mínimo de consulta \\
+\code{def-op-and e1 e2 ...} & Conjunción de expresiones \\
+\code{def-op-or e1 e2 ...} & Disyunción de expresiones \\
+\code{def-op-not e} & Negación \\
+\code{def-op-igual a b} & Igualdad \\
+\code{def-op-distinto a b} & Desigualdad \\
+\code{def-op-mayor a b} & $a > b$ \\
+\code{def-op-menor a b} & $a < b$ \\
+\code{(slot entidad)} & Acceso a un atributo de una entidad en el AST \\
+\code{generar-python archivo \&key ...} & Genera el archivo Python \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ======================================================================
+\section{Preguntas frecuentes}
+\label{sec:faq}
+% ======================================================================
+
+\paragraph{¿Puedo tener más de una entidad combinación?}
+No directamente. El algoritmo genético maneja una única lista de
+asignaciones. Si el problema requiere múltiples tipos de asignaciones,
+considere modelarlo con una sola entidad combinación que tenga más
+atributos variables.
+
+\paragraph{¿Qué ocurre si no se encuentran soluciones perfectas?}
+El algoritmo genético devuelve la mejor solución encontrada, aunque su
+costo sea mayor que cero. Esto puede indicar que el problema es
+sobredeterminado (más restricciones duras de las que los datos permiten
+satisfacer simultáneamente), que el número de generaciones es insuficiente,
+o que los parámetros del algoritmo necesitan ajuste. Los parámetros
+\code{POP\_SIZE}, \code{GENERACIONES}, \code{PROB\_CRUCE},
+\code{PROB\_MUTACION} y \code{TORNEO\_K} pueden modificarse directamente
+en el archivo Python generado.
+
+\paragraph{¿Puedo añadir restricciones manualmente al Python generado?}
+Sí. El archivo Python generado es código ordinario que puede editarse.
+Sin embargo, se recomienda añadir las restricciones al dominio Lisp y
+regenerar, ya que de lo contrario los cambios manuales se perderán en
+la próxima generación.
+
+\paragraph{¿Cómo ajusto los pesos de las restricciones?}
+A través de los parámetros \code{:peso-dura} y \code{:peso-blanda} de
+\code{generar-python}. Si se necesita que ciertas restricciones blandas
+tengan mayor prioridad que otras, una alternativa es usar distintos
+valores de \code{:peso-blanda} en llamadas separadas (creando dos grupos
+de restricciones con pesos distintos) y sumar los costos.
+
+\paragraph{¿El orden de los slots en def-entidad importa?}
+Sí, y es crítico. Los argumentos de la macro \code{def-<entidad>} deben
+proporcionarse en el mismo orden en que se declararon: primero los
+atributos heredados de los mixins (en el orden en que se listaron los
+mixins), y luego los atributos propios.
+
+\paragraph{¿Puedo usar el generador sin SBCL?}
+El generador está escrito en Common Lisp estándar (ANSI CL). En principio
+puede ejecutarse con cualquier implementación de Common Lisp, aunque las
+pruebas se han realizado exclusivamente con SBCL.
+
+% ======================================================================
+\section*{Conclusión}
+\addcontentsline{toc}{section}{Conclusión}
+% ======================================================================
+
+El generador de horarios proporciona un flujo de trabajo claro y
+reproducible para modelar problemas de asignación:
+
+\begin{enumerate}
+  \item \textbf{Definir el dominio} en Lisp: mixins, entidades, combinación,
+    consultas, restricciones y datos.
+  \item \textbf{Generar el Python} con \code{sbcl --script dominio.lisp}.
+  \item \textbf{Ejecutar la metaheurística} con \code{python horario.py}.
+  \item \textbf{Analizar el modelo matemático} y el horario propuesto.
+\end{enumerate}
+
+La separación entre la descripción del problema (Lisp) y su resolución
+(Python generado) permite iterar rápidamente sobre el modelo: modificar
+restricciones, añadir datos o cambiar pesos sin necesidad de reescribir
+el código de optimización.
+
+\end{document}
